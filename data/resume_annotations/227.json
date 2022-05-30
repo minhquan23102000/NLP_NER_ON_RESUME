@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Java JSP Spring Strut.",{"entities":[[0,4,"SKILL"],[5,8,"SKILL"],[9,15,"SKILL"],[16,21,"SKILL"]]}]]}

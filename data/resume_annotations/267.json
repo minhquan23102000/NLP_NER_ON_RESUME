@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Some projects PO/PM use VB.NET OS Windows Linux DB PL/PLSQL Oracle .",{"entities":[[24,30,"SKILL"],[31,33,"SKILL"],[34,41,"SKILL"],[42,47,"SKILL"],[48,50,"SKILL"],[51,59,"SKILL"],[60,66,"SKILL"]]}]]}

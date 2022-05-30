@@ -1,0 +1,7 @@
+pytorch
+cudatoolkit==11.3
+spacy[cuda113,transformers,lookups]
+pymudf
+pyvi
+nltk
+urlextract

@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Strong experience in Object C Cocoa XCode iOS SDK Graphics Animation .",{"entities":[[21,29,"SKILL"],[30,35,"SKILL"],[36,41,"SKILL"],[42,49,"SKILL"],[50,68,"SKILL"]]}]]}

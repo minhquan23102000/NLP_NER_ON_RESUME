@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Use Autocad proficiently to draw mechanical drawing of Ball Mill.",{"entities":[[4,11,"SKILL"],[28,43,"SKILL"]]}]]}

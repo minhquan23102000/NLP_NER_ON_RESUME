@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Developed the classifier models in order to identify red flags and fraud related issues.",{"entities":[[14,31,"SKILL"],[44,72,"SKILL"]]}]]}

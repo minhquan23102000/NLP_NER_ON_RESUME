@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Worked on multiple roles like bug fixing DB operations Feature customisation and writing API endpoints.",{"entities":[[30,40,"SKILL"],[41,54,"SKILL"],[81,102,"SKILL"]]}]]}

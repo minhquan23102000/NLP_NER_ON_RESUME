@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Create estimation plan and schedule of project.",{"entities":[[7,22,"SKILL"],[27,46,"SKILL"]]}],["Create estimation plan and schedule of project.",{"entities":[[7,46,"SKILL"]]}]]}

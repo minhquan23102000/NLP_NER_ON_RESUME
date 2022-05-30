@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["C# .Net Framework 2.0/3.5 Telerik Framework LINQ.",{"entities":[[0,2,"SKILL"],[3,17,"SKILL"],[26,33,"SKILL"],[44,48,"SKILL"]]}]]}

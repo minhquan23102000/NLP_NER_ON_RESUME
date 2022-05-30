@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Reconcile SAP s VAT balance with tax report from taxonline software.",{"entities":[[10,13,"SKILL"],[16,27,"SKILL"],[33,43,"SKILL"],[49,58,"SKILL"]]}]]}

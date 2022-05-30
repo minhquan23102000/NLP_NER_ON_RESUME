@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Good at subjects Data Structure & Algorithm Principle of Program Language Operating System etc.",{"entities":[[17,43,"SKILL"],[74,90,"SKILL"]]}]]}

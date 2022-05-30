@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Learn variety soft skills like planning problem solving communications opinion expressions teamwork etc.",{"entities":[[31,39,"SKILL"],[40,55,"SKILL"],[56,70,"SKILL"],[71,90,"SKILL"],[91,99,"SKILL"]]}]]}

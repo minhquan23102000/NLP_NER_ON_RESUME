@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Writing handbooks about SAP asset and inventory controlling procedures.",{"entities":[[0,7,"SKILL"],[24,27,"SKILL"],[38,59,"SKILL"]]}]]}

@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["I have good knowledge of the designtools like Figma Illustrator Adobe XD and HTML CSS.",{"entities":[[46,51,"SKILL"],[52,63,"SKILL"],[64,72,"SKILL"],[77,81,"SKILL"],[82,85,"SKILL"]]}]]}

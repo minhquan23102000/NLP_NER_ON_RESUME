@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Support leader to organize activities for about 30 40 students from other countries.",{"entities":[[0,14,"SKILL"],[18,37,"SKILL"]]}]]}

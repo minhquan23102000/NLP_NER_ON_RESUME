@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["+ Find out bugs and update bugs on bug tracker.",{"entities":[[2,15,"SKILL"],[35,46,"SKILL"]]}]]}

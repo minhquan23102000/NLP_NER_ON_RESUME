@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Then converting this document from RosettaNet document to Flatfile and vice versa.",{"entities":[[35,45,"SKILL"],[58,66,"SKILL"]]}]]}

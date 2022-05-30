@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Marketing Collaborator 123Phim VNG Corporation HCM City 06/2015 01/2016 Admin fanpage and website.",{"entities":[[0,22,"JOB_TITLE"],[31,46,"ORGANIZATION"],[72,97,"SKILL"]]}]]}

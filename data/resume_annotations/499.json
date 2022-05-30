@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Use opencv to detect face and RoR to build a web server.",{"entities":[[4,10,"SKILL"],[30,33,"SKILL"],[45,55,"SKILL"]]}]]}

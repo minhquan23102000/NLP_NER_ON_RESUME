@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Writing and improving SQL Server T SQL queries for at least a year.",{"entities":[[22,32,"SKILL"],[33,34,"SKILL"],[35,38,"SKILL"]]}]]}

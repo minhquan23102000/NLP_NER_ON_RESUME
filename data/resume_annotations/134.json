@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Responsibility Social application design web design motion graphic video editing.",{"entities":[[22,40,"SKILL"],[41,51,"SKILL"],[52,66,"SKILL"],[67,80,"SKILL"]]}]]}

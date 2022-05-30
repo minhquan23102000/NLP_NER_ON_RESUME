@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Programer Manage Salary system Tiemkeeping system Production planning system Manage database SQL 2000 2002.",{"entities":[[50,69,"SKILL"],[77,92,"SKILL"],[93,96,"SKILL"]]}]]}

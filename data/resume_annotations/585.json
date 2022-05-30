@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Manage and lead team to development deployment training and support user to ensure systems are online.",{"entities":[[0,20,"SKILL"],[24,35,"SKILL"],[36,46,"SKILL"],[47,72,"SKILL"]]}]]}

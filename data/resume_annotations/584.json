@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Train for new member before starting project Work with end user to clarify requirement support and training for users.",{"entities":[[0,20,"SKILL"],[67,94,"SKILL"],[99,117,"SKILL"]]}]]}

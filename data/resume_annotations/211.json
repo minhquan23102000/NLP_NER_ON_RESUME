@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Technologies Objective C iOS XML client server through web service.",{"entities":[[13,24,"SKILL"],[25,28,"SKILL"],[29,32,"SKILL"],[55,66,"SKILL"]]}]]}

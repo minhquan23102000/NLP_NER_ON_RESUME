@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Manage PDM system TPS system MES system.",{"entities":[[7,10,"SKILL"],[18,21,"SKILL"],[29,32,"SKILL"]]}]]}

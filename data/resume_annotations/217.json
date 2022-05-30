@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Technologies C# XAML WCF Windows Phone 8 facebook sdk.",{"entities":[[13,15,"SKILL"],[16,20,"SKILL"],[21,24,"SKILL"],[25,40,"SKILL"],[41,53,"SKILL"]]}]]}

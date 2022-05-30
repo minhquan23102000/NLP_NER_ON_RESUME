@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["September 1995 June 2001 Customer Services Operations Specialist SITA Operate maintain SITA data network.",{"entities":[[25,69,"JOB_TITLE"],[70,91,"SKILL"]]}]]}

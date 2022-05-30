@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["UML Use Case Class Diagram Sequence Diagram Conceptual Diagram StateChart.",{"entities":[[0,3,"SKILL"],[4,12,"SKILL"],[13,26,"SKILL"],[27,43,"SKILL"],[44,62,"SKILL"],[63,73,"SKILL"]]}]]}

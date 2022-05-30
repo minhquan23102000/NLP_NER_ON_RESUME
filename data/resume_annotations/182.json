@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Testing Do unit testing before sending to functional consultant fixing bugs adding new changes along to user s new requirement.",{"entities":[[0,7,"SKILL"],[11,23,"SKILL"],[64,75,"SKILL"]]}]]}

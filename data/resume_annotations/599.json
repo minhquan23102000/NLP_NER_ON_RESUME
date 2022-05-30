@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["Sun SPARC Enterprise MX000 Server Administration IES 411 Sun Training Centre Singapore 8.",{"entities":[[0,20,"SKILL"],[27,48,"SKILL"],[49,56,"SKILL"],[57,88,"ORGANIZATION"]]}]]}

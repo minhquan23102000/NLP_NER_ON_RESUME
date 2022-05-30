@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["- 3 years of experience in Java.",{"entities":[[2,23,"EXPERIENCE_LEVEL"],[27,31,"SKILL"]]}]]}

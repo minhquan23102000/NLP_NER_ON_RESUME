@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Coded extensively in c#.net VB.NET targeting the Business requirements.",{"entities":[[21,23,"SKILL"],[23,27,"SKILL"],[28,34,"SKILL"]]}]]}

@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Working on Deployment to QA with Configuration settings.",{"entities":[[11,21,"SKILL"],[25,27,"SKILL"],[33,55,"SKILL"]]}]]}

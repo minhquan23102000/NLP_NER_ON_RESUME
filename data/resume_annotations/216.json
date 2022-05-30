@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["o Interface and effects built with Expression Blend and XAML.",{"entities":[[35,51,"SKILL"],[56,60,"SKILL"]]}]]}

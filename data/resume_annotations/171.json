@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Participate and be trained in SAP system over 2 years.",{"entities":[[30,33,"SKILL"],[41,53,"EXPERIENCE_LEVEL"]]}]]}

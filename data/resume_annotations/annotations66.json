@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["_Meet up with the customers to ask questions about project investigate analyze and write document.",{"entities":[[51,70,"SKILL"],[71,78,"SKILL"],[83,97,"SKILL"]]}]]}

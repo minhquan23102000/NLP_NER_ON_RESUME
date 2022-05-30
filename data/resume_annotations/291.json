@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Brand Building Excellence Course at AIM Academy Marketing & Communication Hub.",{"entities":[[0,14,"SKILL"],[48,57,"SKILL"],[60,73,"SKILL"]]}]]}

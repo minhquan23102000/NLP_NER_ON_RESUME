@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Databases MS SQL Server 2000 Oracle 9i.",{"entities":[[10,23,"SKILL"],[29,35,"SKILL"]]}]]}

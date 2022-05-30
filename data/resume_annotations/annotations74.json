@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Create user flows and UI components to design website by executing on all phases of design process.",{"entities":[[0,17,"SKILL"],[22,35,"SKILL"],[39,53,"SKILL"],[84,98,"SKILL"]]}]]}

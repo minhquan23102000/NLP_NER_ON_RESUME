@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Manage ADSL line in company responsible to contact with ISP to fix the issues if it happen .",{"entities":[[7,11,"SKILL"],[56,59,"SKILL"]]}]]}

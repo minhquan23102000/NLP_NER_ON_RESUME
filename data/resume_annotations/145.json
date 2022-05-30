@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["Skills Strong knowledge C/C++ C# and Java .",{"entities":[[24,29,"SKILL"],[30,32,"SKILL"],[37,41,"SKILL"]]}]]}

@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["i3 International is an ISO 9001/2008 certified company with a complete line of UL/ULC/TuV listed products.",{"entities":[[0,16,"ORGANIZATION"]]}]]}

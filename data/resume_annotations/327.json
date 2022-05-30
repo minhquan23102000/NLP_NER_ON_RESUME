@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER"],"annotations":[["from August 2008 to October 2008 To get a pass in Microsoft Certification Program MCP exam of Microsoft .NET framework 2.0 Application Development Foundation.",{"entities":[[104,108,"SKILL"]]}]]}

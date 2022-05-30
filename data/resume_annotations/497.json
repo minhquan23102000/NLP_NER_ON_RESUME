@@ -1,0 +1,1 @@
+{"classes":["PERSON_NAME","ADDRESS","EDUCATION","GPA","SKILL","EXPERIENCE_LEVEL","JOB_TITLE","DATE_BIRTH","MAJOR","MARIAGE_STATUS","ORGANIZATION","GENDER","LOCATION"],"annotations":[["+ SQL mySQL SQLite3 and NoSQL mongo & mongo mapper .",{"entities":[[2,5,"SKILL"],[6,11,"SKILL"],[12,19,"SKILL"],[24,29,"SKILL"],[30,35,"SKILL"],[38,50,"SKILL"]]}]]}
