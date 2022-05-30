@@ -4,3 +4,5 @@ PyMuPDF
 pyvi
 nltk
 urlextract
+streamlit
+pdfplumber
