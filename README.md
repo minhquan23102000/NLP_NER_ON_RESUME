@@ -62,3 +62,5 @@ More config you can read at spacy document: https://spacy.io/usage/training#conf
 ```cmd
 python -m spacy train config.cf
 ```
+
+You can view this notebook for more demo detail: https://github.com/minhquan23102000/NLP_NER_ON_RESUME/blob/master/Lab/lab3.ipynb
