@@ -1,7 +1,6 @@
-pytorch
-cudatoolkit==11.3
+torch
 spacy[cuda113,transformers,lookups]
-pymudf
+PyMuPDF
 pyvi
 nltk
 urlextract
