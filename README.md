@@ -63,4 +63,9 @@ More config you can read at spacy document: https://spacy.io/usage/training#conf
 python -m spacy train config.cf
 ```
 
+## Step 4: Evaluation
+
+### Model train after 45 epoch
+![image](https://user-images.githubusercontent.com/57226852/170948579-4d11785e-bf96-40e4-b4f4-a9256cc2421a.png)
+
 You can view this notebook for more demo detail: https://github.com/minhquan23102000/NLP_NER_ON_RESUME/blob/master/Lab/lab3.ipynb
