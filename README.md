@@ -55,7 +55,7 @@ size = 256
 buffer = 128 
 get_length = null
 ```
-Increase training.batcher size to speed up training process, but will consume memory
+Increase training.batcher size to speed up training process, but will consume memory.
 More config you can read at spacy document: https://spacy.io/usage/training#config
 
 ## Step 3: Start traning
