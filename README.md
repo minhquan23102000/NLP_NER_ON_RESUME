@@ -24,6 +24,8 @@ PROFILE_URL: [{'anhsangvang.com.vn', 'ruellevietnam.com', 'www.khavitech.com', '
 PHONE: [set()]
 ```
 
+### You can view more demo detail from this link: https://readyourresume.herokuapp.com/
+
 # Train model
 ## Step 0: Prepare environment
 Because using BERT to train model, so we need a GPU.
@@ -73,4 +75,4 @@ python -m spacy train config.cf
 ![image](https://user-images.githubusercontent.com/57226852/170948579-4d11785e-bf96-40e4-b4f4-a9256cc2421a.png)
 
 
-#### You can view more demo detail from this link: https://readyourresume.herokuapp.com/
+
