@@ -24,13 +24,19 @@ PROFILE_URL: [{'anhsangvang.com.vn', 'ruellevietnam.com', 'www.khavitech.com', '
 PHONE: [set()]
 ```
 
+### You can view more demo detail from this link: https://readyourresume.herokuapp.com/
+
 # Train model
 ## Step 0: Prepare environment
 Because using BERT to train model, so we need a GPU.
 
+Clone this project.
+
+Then run
 ```cmd
 pip install -r requirement.txt
 ```
+
 Make sure you have an available GPU (with Dedicated GPU memory >= 3.0 GB). Also installed CUDA on your device
 
 
@@ -68,4 +74,5 @@ python -m spacy train config.cf
 ### Model train after 45 epoch
 ![image](https://user-images.githubusercontent.com/57226852/170948579-4d11785e-bf96-40e4-b4f4-a9256cc2421a.png)
 
-You can view this notebook for more demo detail: https://github.com/minhquan23102000/NLP_NER_ON_RESUME/blob/master/Lab/lab3.ipynb
+
+
