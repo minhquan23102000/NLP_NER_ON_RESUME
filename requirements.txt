@@ -6,3 +6,5 @@ nltk
 urlextract
 streamlit
 pdfplumber
+dill
+python-docx
