@@ -7,8 +7,9 @@ import sys
 import dill
 import requests
 import streamlit as st
+import streamlit.components.v1 as components
 
-from core import resume_reader
+from core import resume_generator, resume_reader
 from core.resume_reader import ResumeReader
 from file_reader.pdf_reader import PDFReader
 from ultils import buffer2base64
@@ -75,17 +76,16 @@ if cv_file:
         json.dump(info, f)
 
     resume_theme = st.sidebar.selectbox(
-        "Choose a theme 👇", ["eloquent-mod", "actual", "macchiato", "even", "monoblue"]
+        "Choose a theme 👇", ["eloquent-mod", "actual", "macchiato", "monoblue"]
     )
 
     # Generate new resume
-    RESUME_PATH = os.path.join(PATH, "resume.pdf")
-    generate_resume_command = f"resume export {RESUME_PATH} --theme {resume_theme}"
-    subprocess.run(generate_resume_command, shell=True)
+    resume_html = resume_generator.generate_resume(resume_theme)
+
+    #Display resume on web
     cols[1].header("New resume")
-    with open(RESUME_PATH, "rb") as f:
-        pdf_display_1 = f'<embed src="data:application/pdf;base64,{buffer2base64(f.read())}" width=100% height="750" type="application/pdf">'
-        cols[1].markdown(pdf_display_1, unsafe_allow_html=True)
+    with cols[1]:
+        components.html(resume_html, height=750, scrolling=True)
 
     # resume_reader.content_model.fit(cv_content)
     st.write(resume_reader.heading_model.get_dict())
