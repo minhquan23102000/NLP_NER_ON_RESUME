@@ -1,0 +1,48 @@
+.margin-container-2:not(:first-child) {
+  margin-top: $space-2;
+}
+
+.margin-container-3:not(:first-child) {
+  margin-top: $space-3;
+}
+
+.margin-container-4:not(:first-child) {
+  margin-top: $space-4;
+}
+
+.padding-container-2 {
+  padding: $space-2 0;
+}
+
+.margin-text-1 {
+  @include margin-text(2px)
+}
+
+.margin-text-2 {
+  @include margin-text(4px)
+}
+
+.margin-text-3 {
+  @include margin-text(6px)
+}
+
+.margin-text-4 {
+  @include margin-text(8px)
+}
+
+.margin-text-5 {
+  @include margin-text(14px)
+}
+
+
+.no-break {
+  break-inside: avoid;
+}
+
+.no-alone-1 {
+  @include no-alone(75px)
+}
+
+.no-alone-2 {
+  @include no-alone(150px)
+}

@@ -1,0 +1,37 @@
+.basics {
+
+  .main {
+    vertical-align: middle;
+
+    .name {
+      font-size: $header-name-font-size;
+      line-height: 1em;
+      font-weight: bold;
+      display: block;
+      margin-left: -$header-name-font-size*0.07;
+    }
+
+    .label {
+      font-size: $header-line-font-size;
+      line-height: 1em;
+      font-weight: lighter;
+      display: block;
+      margin-left: -$header-line-font-size*0.04;
+    }
+  }
+
+  .side {
+    vertical-align: middle;
+    padding-left: 0;
+    padding-top: 15px;
+
+    .contact {
+      list-style-type: none;
+
+      li {
+        font-size: $font-size-large;
+        line-height: $line-height-3;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "jsonresume-theme-actual": "^0.2.1",
+    "jsonresume-theme-caffeine": "^1.2.3",
+    "jsonresume-theme-eloquent-mod": "^4.23.0",
+    "jsonresume-theme-gnap": "^0.0.8",
+    "jsonresume-theme-macchiato": "^1.1.0",
+    "jsonresume-theme-monoblue": "^1.0.2",
+    "jsonresume-theme-orbit": "^1.1.0"
+  }
+}

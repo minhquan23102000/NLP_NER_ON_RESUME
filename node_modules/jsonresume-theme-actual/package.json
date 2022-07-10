@@ -1,0 +1,41 @@
+{
+  "name": "jsonresume-theme-actual",
+  "main": "index.js",
+  "files": [
+    "/assets",
+    "index.js"
+  ],
+  "version": "0.2.1",
+  "description": "Actual theme for JSON Resume",
+  "author": "David Carvajal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davcd/jsonresume-theme-actual"
+  },
+  "scripts": {
+    "create-html": "resume export public/resume.html --format html --theme .",
+    "create-pdf": "resume export public/resume.pdf --format pdf --theme .",
+    "create-docs": "resume export docs/resume_extended.pdf --resume public/resume_extended.json --format pdf --theme . && resume export docs/resume_simple.pdf --resume public/resume_simple.json --format pdf --theme .",
+    "validate": "resume test",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "gulp": "gulp",
+    "gulp:css": "gulp css"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "iso-3166-1": "^2.1.1",
+    "markdown-it": "^13.0.1",
+    "moment": "^2.29.3",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.10",
+    "gulp": "^4.0.2",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "html-validate": "^7.1.1",
+    "jest": "^28.1.1",
+    "sass": "^1.52.3"
+  }
+}

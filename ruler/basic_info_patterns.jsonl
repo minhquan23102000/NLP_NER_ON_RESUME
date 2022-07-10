@@ -1,0 +1,9 @@
+{"label": "URL", "pattern": [{"LIKE_URL": true}]}
+{"label": "EMAIL", "pattern": [{"LIKE_EMAIL": true}]}
+{"label": "GENDER", "pattern": [{"LOWER": {"IN": ["male", "female", "nu", "nam"]}}]}
+{"label": "MARIAGE_STATUS", "pattern": [{"LOWER": {"IN": ["single", "marriage", "married", "alone"]}}]}
+{"label": "MARIAGE_STATUS", "pattern": [{"LOWER": "doc"}, {"LOWER": "than"}]}
+{"label": "MARIAGE_STATUS", "pattern": [{"LOWER": "ket"}, {"LOWER": "hon"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": {"REGEX": "^[bm][.,][aes]$"}}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": {"REGEX": "(associate|master|bachelor|doctor|doctoral)"}}, {"LOWER": "'s", "OP": "?"}, {"LOWER": "degree", "OP": "?"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "ph"}, {"LOWER": ".", "OP": "?"}, {"LOWER": "d"}]}

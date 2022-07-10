@@ -1,0 +1,13 @@
+@use "sass:color";
+
+.education {
+
+  .title {
+    font-size: $font-size-small;
+  }
+
+  .institution {
+    font-size: $font-size-small;
+    font-weight: lighter;
+  }
+}

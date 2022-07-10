@@ -1,0 +1,65 @@
+@use "sass:color";
+
+a {
+  color: $text-color;
+  font-weight: inherit;
+  text-decoration: none;
+
+  &[href] {
+    text-decoration: underline;
+    text-decoration-color: color.adjust($text-color, $lightness: 40%);
+  }
+}
+
+p, q {
+  line-height: $line-height-1;
+}
+
+li {
+  line-height: $line-height-2;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.content {
+  width: $content-width;
+  height: auto;
+  padding: 0 50px;
+  margin: 0 auto;
+  font-family: Helvetica, Arial, sans-serif;
+  color: $text-color;
+}
+
+.table {
+  width: 100%;
+  display: table;
+
+  .main {
+    display: table-cell;
+    width: $content-main-percentage;
+    padding-right: $space-4;
+  }
+
+  .side {
+    display: table-cell;
+    width: $content-side-percentage;
+    padding-left: $space-4;
+    text-align: right;
+  }
+}
+
+.summary {
+  font-size: $font-size-small;
+
+  &:empty {
+    display: none
+  }
+}
+
+.section-title {
+  font-size: $font-size-xlarge;
+  font-weight: normal;
+  margin: 0 0 $space-2 0;
+}

@@ -1,0 +1,54 @@
+{
+  "name": "jsonresume-theme-macchiato",
+  "version": "1.1.0",
+  "description": "Simple theme for JSON Resume. Based on caffeine-theme.",
+  "author": "Alessandro Biondi",
+  "scripts": {
+    "test": "jest",
+    "prepublishOnly": "npm run pretty && npm run lint && npm run test",
+    "pretty": "prettier --write --ignore-path='*lock.json' '{src/**/*.{js,ts,json},./*{js,ts,json}}' ",
+    "lint": "eslint *.js"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run pretty && npm run lint",
+      "pre-push": "npm run prepublishOnly"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/biosan/jsonresume-theme-macchiato"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "address-format": "^0.0.3",
+    "handlebars": "^4.7.6",
+    "handlebars-wax": "^6.1.0",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "~8.2.0",
+    "@commitlint/config-conventional": "~8.2.0",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "husky": "~3.0.9",
+    "jest": "^24.9.0",
+    "jest-handlebars": "^1.0.1",
+    "jest-image-snapshot": "^2.11.0",
+    "prettier": "^1.18.2",
+    "puppeteer": "^2.0.0"
+  },
+  "jest": {
+    "transform": {
+      "\\.hbs$": "jest-handlebars"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

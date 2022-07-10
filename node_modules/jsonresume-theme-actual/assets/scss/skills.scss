@@ -1,0 +1,31 @@
+@use "sass:math";
+
+.skills {
+
+  .section-title {
+    margin: 0;
+  }
+
+  .container {
+    display: block;
+    columns: 2;
+    column-gap: $space-1;
+
+    .article {
+      break-inside: avoid-column;
+      min-width: ($content-width * math.div($content-side-percentage, 100%) - $space-1 -$space-4) * 0.5;
+      padding-top: $space-2;
+
+      span {
+        display: block;
+        font-size: $font-size-large;
+        font-weight: lighter;
+      }
+
+      li {
+        font-size: $font-size-xsmall;
+        list-style: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div id="ie-notice">
+    <div>You seem to be using Internet Explorer and this site will not look quite right in it. In fact it will probably not work at all. Please consider updating to a modern browser:</div>
+    <div><a href="https://www.microsoft.com/en-us/edge?r=1">Edge</a> | <a href="https://www.google.com/chrome/">Chrome</a> | <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> | <a href="https://support.apple.com/en-us/HT204416">Safari</a> | <a href="https://brave.com/">Brave</a> | <a href="https://www.opera.com/">Opera</a></div> 
+</div>
+<script>
+if (/MSIE|Trident/.test(window.navigator.userAgent)) {
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('ie-notice').style.display = 'block';
+    });
+}
+</script>
