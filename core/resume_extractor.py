@@ -136,6 +136,7 @@ class ContentExtractor(Extractor):
             return
         self.text = text
         phone_span = self.extract_phone(text)
+        print(phone_span)
         if phone_span:
             start_idx, end_idx = phone_span.span()
             span = self.doc.char_span(start_idx, end_idx, label="PHONE")
@@ -152,7 +153,7 @@ class ContentExtractor(Extractor):
 
     def extract_phone(self, text: str) -> List[str]:
         #phone_token = r"[(\+?84)0]\d{9,12}\s+"
-        phone_token = r"[(\+?\d)0]{1,2}\s*\d{3}\s*\d{3}\s*\d{3}\b"
+        phone_token = r"(\(?\+?\d{2,2}\)?|0)[\s\-\.]*\d{3}[\s\-\.]*\d{3}[\s\-\.]*\d{3}\b"
         return re.search(phone_token, text)
 
     def get_ents(self) -> List[List[str]]:

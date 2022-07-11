@@ -16,18 +16,16 @@ from ultils import buffer2base64
 
 # sys.path.append("core/resume_reader.py")
 
-st.set_page_config(
-    page_title="Read Your Resume", page_icon="img/app_icon.png", layout="wide"
-)
+st.set_page_config(page_title="Read Your Resume",
+                   page_icon="img/app_icon.png",
+                   layout="wide")
 
 st.markdown("### Welcome to Read Your Resume 👋")
-st.markdown(
-    """
-    Import an resume and get your content json format!
-    With this json format you can customize your resume automatically at jsonresume.org.
-    You can also use this json for filtering and scoring resumes.
-"""
-)
+st.markdown("""
+    Import an resume and get your resume content in json format!
+    With this json you can ustomize your resume automatically at jsonresume.org.
+    You can also use this json for filtering or scoring resumes.
+""")
 
 PATH = os.path.dirname(__file__)
 
@@ -76,8 +74,8 @@ if cv_file:
         json.dump(info, f)
 
     resume_theme = st.sidebar.selectbox(
-        "Choose a theme 👇", ["eloquent-mod", "actual", "macchiato", "monoblue"]
-    )
+        "Choose a theme 👇",
+        ["eloquent-mod", "actual", "macchiato", "monoblue"])
 
     # Generate new resume
     resume_html = resume_generator.generate_resume(resume_theme)

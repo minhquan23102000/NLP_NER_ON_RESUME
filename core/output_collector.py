@@ -40,7 +40,7 @@ class Collector(object):
         elif label == "URL":
             text = parse_url(text)
         elif label == "DOING":
-            text = text.capitalize()
+            text = text[0].upper() + text[1:]
         key, text = self.before_update_bundle(key, label, text)
 
         self.bundle[key].append(text)
@@ -52,7 +52,7 @@ class Collector(object):
         for label, text in entities:
             collect_string = ""
             if self.check_collect_point(label):
-                collect_string = f"Collect-> Container size: {len(self.container)}\nbundle: {self.bundle}"
+                #collect_string = f"Collect-> Container size: {len(self.container)}\nbundle: {self.bundle}"
                 print(collect_string)
                 self.container.append(self.bundle.copy())
                 self.reset_bundle()
@@ -67,7 +67,7 @@ class Collector(object):
         else:
             if self.container:
                 self.container[-1].update(self.bundle.copy())
-        print(f"Done collected: {self.container}")
+        #print(f"Done collected: {self.container}")
         self.reset_bundle()
 
     def get_main_keys(self, bundle):

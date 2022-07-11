@@ -185,7 +185,7 @@ class ResumeReader(object):
         data = []
         for label, text in self.content_model.get_ents():
             if label == "HOBBY":
-                data.append({"name": text.lower().capitalize()})
+                data.append({"name": text})
 
         return data
 
@@ -218,7 +218,7 @@ class ResumeReader(object):
         data = []
         for label, text in self.content_model.get_ents():
             if label == "SKILL":
-                data.append(text.lower().capitalize())
+                data.append(text)
 
         return [{"name": "Key skill", "keywords": list(set(data))}]
 
