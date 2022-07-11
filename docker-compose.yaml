@@ -2,7 +2,7 @@ services:
   web:
     build: .
     container_name: readyourresume
-    command: streamlit run app_online.py
+    command: streamlit run app_online.py --server.port ${PORT:-8501}
     ports:
       - 8501:${PORT}
     volumes:

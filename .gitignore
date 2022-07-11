@@ -164,6 +164,7 @@ cython_debug/
 model/
 *.pkl
 
+test/
 #Private things
 # resume.json
 # resume.pdf
