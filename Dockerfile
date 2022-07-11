@@ -10,5 +10,5 @@ FROM nikolaik/python-nodejs:python3.8-nodejs17-slim
 
     RUN pip install -U pip
     RUN pip install --no-cache-dir  -r requirements.txt
-    RUN sh setup.sh
+
     CMD streamlit run app_online.py
