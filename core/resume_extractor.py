@@ -5,6 +5,7 @@ from typing import Dict, List
 
 import spacy
 from pathy import ABC
+from preprocessor import preprocessor
 from spacy import displacy
 from spacy.matcher import Matcher
 from spacy.util import filter_spans
@@ -38,11 +39,10 @@ class Extractor(ABC):
 
 class HeadingExtractor(Extractor):
     def __init__(self):
-        self.nlp = spacy.blank('en')
+        self.nlp = spacy.blank("en")
         self.ruler = self.nlp.add_pipe(
-            'entity_ruler', config={
-                'validate': True
-            }).from_disk('ruler/heading_pattern.jsonl')
+            "entity_ruler", config={"validate": True}
+        ).from_disk("ruler/heading_pattern.jsonl")
 
     def fit(self, text: str):
         """Fit model to content, call to_dict() to get heading group values
@@ -53,8 +53,7 @@ class HeadingExtractor(Extractor):
         self.doc = self.nlp(text)
 
     def get_dict(self) -> Dict[str, str]:
-        """Extract readed resume content to dictionary
-        """
+        """Extract readed resume content to dictionary"""
         data = defaultdict(str)
 
         last_key = "BASIC"
@@ -88,10 +87,12 @@ class HeadingExtractor(Extractor):
 class SpanExtractor(Extractor):
     def __init__(self):
         import srsly
+
         patterns = srsly.read_jsonl("ruler/skill_patterns.jsonl")
         self.model = spacy.load("model/content_span")
-        self.ruler = self.model.add_pipe(
-            "span_ruler", before='spancat').add_patterns(patterns)
+        self.ruler = self.model.add_pipe("span_ruler", before="spancat").add_patterns(
+            patterns
+        )
         self.available_labels = self.model.get_pipe("spancat").labels
 
     def fit(self, text: str):
@@ -113,21 +114,14 @@ class SpanExtractor(Extractor):
 class ContentExtractor(Extractor):
     def __init__(self):
         import srsly
+
         self.model = spacy.load("model/content_ner_v1")
         self.ruler = self.model.add_pipe(
-            'entity_ruler',
-            name="ruler1",
-            config={
-                'validate': True
-            },
-            after='ner').from_disk('ruler/skill_patterns.jsonl')
+            "entity_ruler", name="ruler1", config={"validate": True}, after="ner"
+        ).from_disk("ruler/skill_patterns.jsonl")
         self.ruler1 = self.model.add_pipe(
-            'entity_ruler',
-            name="ruler2",
-            config={
-                'validate': True
-            },
-            before='ner').from_disk('ruler/basic_info_patterns.jsonl')
+            "entity_ruler", name="ruler2", config={"validate": True}, before="ner"
+        ).from_disk("ruler/basic_info_patterns.jsonl")
         self.available_labels = self.model.get_pipe("ner").labels
 
     def fit(self, text: str):
@@ -152,23 +146,47 @@ class ContentExtractor(Extractor):
         return self.doc
 
     def extract_phone(self, text: str) -> List[str]:
-        #phone_token = r"[(\+?84)0]\d{9,12}\s+"
-        phone_token = r"(\(?\+?\d{2,2}\)?|0)[\s\-\.]*\d{3}[\s\-\.]*\d{3}[\s\-\.]*\d{3}\b"
+        # phone_token = r"[(\+?84)0]\d{9,12}\s+"
+        phone_token = (
+            r"(\(?\+?\d{2,2}\)?|0)[\s\-\.]*\d{3}[\s\-\.]*\d{3}[\s\-\.]*\d{3}\b"
+        )
         return re.search(phone_token, text)
 
     def get_ents(self) -> List[List[str]]:
-        data = []
-        for ent in self.doc.ents:
-            text = ent.text
-            if ent.label_ == 'DATE':
-                if text == '-':
-                    continue
-                text = text.lower()
-                text = re.sub(
-                    r"[^(january|february|march|april|may|june|july|august|september|october|november|december|now|present)\d+-\\/]",
-                    "", text)
-            data.append([ent.label_, text])
-        return data
+        ents = []
+        string_cat = ""
+        string_not_cat = ""
+        label = ""
+        for token in self.doc:
+            if token.ent_type:
+                if token.ent_iob_ == "B":
+                    if token.ent_type_ == "SKILL" and label == "DOING":
+                        string_cat += token.text_with_ws
+                        continue
+                    if label == "DOING":
+                        string_cat += string_not_cat
+                    elif len(string_not_cat.strip()) > 1:
+                        ents.append(["none", string_not_cat.strip()])
+                    if len(string_cat) > 1 and label:
+                        ents.append([label, string_cat.strip()])
+                    string_cat = ""
+                    string_not_cat = ""
+                    label = token.ent_type_
+
+                if not preprocessor.is_special_char(token.text):
+                    string_cat += token.text_with_ws
+            else:
+                if not preprocessor.is_special_char(token.text):
+                    string_not_cat += token.text_with_ws
+
+        if label == "DOING":
+            string_cat += string_not_cat
+        elif len(string_not_cat.strip()) > 1:
+            ents.append(["none", string_not_cat.strip()])
+        if len(string_cat) > 1 and label:
+            ents.append([label, string_cat.strip()])
+
+        return ents
 
     def get_doc(self):
         return self.doc

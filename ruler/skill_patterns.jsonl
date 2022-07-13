@@ -32,14 +32,14 @@
 {"label":"SKILL","pattern":[{"LOWER":"aerospike"}]}
 {"label":"SKILL","pattern":[{"LOWER":"agile"},{"LOWER":"project"},{"LOWER":"management"}]}
 {"label":"SKILL","pattern":[{"LOWER":"agricultural"},{"LOWER":"engineering"}]}
-{"label":"SKILL","pattern":[{"LOWER":"airflow"}]}
+  {"label":"SKILL","pattern":[{"LOWER":"airflow"}]}
 {"label":"SKILL","pattern":[{"LOWER":"airtable"}]}
 {"label":"SKILL","pattern":[{"LOWER":"ajax"}]}
 {"label":"SKILL","pattern":[{"LOWER":"akamai"}]}
 {"label":"SKILL","pattern":[{"LOWER":"akka"}]}
 {"label":"SKILL","pattern":[{"LOWER":"algolia"}]}
-{"label":"SKILL","pattern":[{"LOWER":"algorithms"}]}
-{"label":"SKILL","pattern":[{"LOWER":"algorithm"}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA": true}, {"LOWER": {"REGEX": "algorithms?"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "algorithms?"}}, {"IS_ALPHA": true}]}
 {"label":"SKILL","pattern":[{"LOWER":"algorithm"},{"LOWER":"design"}]}
 {"label":"SKILL","pattern":[{"LOWER":"alpine"},{"LOWER":"linux"}]}
 {"label":"SKILL","pattern":[{"LOWER":"amazon"},{"LOWER":"api"},{"LOWER":"gateway"}]}
@@ -122,8 +122,6 @@
 {"label":"SKILL","pattern":[{"LOWER":"architectural"},{"LOWER":"engineering"}]}
 {"label":"SKILL","pattern":[{"LOWER":"arduino"}]}
 {"label":"SKILL","pattern":[{"LOWER":"art"},{"LOWER":"&"},{"LOWER":"architecture"},{"LOWER":"thesaurus"}]}
-{"label":"SKILL","pattern":[{"LOWER":"ai"}]}
-{"label":"SKILL","pattern":[{"LOWER":"artificial"},{"LOWER":"intelligence"}]}
 {"label":"SKILL","pattern":[{"LOWER":"artificial"},{"LOWER":"neural"},{"LOWER":"network"}]}
 {"label":"SKILL","pattern":[{"LOWER":"asana"}]}
 {"label":"SKILL","pattern":[{"TEXT":"ASP.NET"}]}
@@ -945,7 +943,7 @@
 {"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"registration"}]}
 {"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"resolution"}]}
 {"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"retrieval"}]}
-{"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"segmentation"}]}
+  {"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"segmentation"}]}
 {"label":"SKILL","pattern":[{"LOWER":"image"},{"LOWER":"sensor"}]}
 {"label":"SKILL","pattern":[{"LOWER":"imgix"}]}
 {"label":"SKILL","pattern":[{"LOWER":"immutable.js"}]}
@@ -1730,8 +1728,6 @@
 {"label":"SKILL","pattern":[{"LOWER":"secure multi"},{"LOWER":"party computation"}]}
 {"label":"SKILL","pattern":[{"LOWER":"security"}]}
 {"label":"SKILL","pattern":[{"LOWER":"seesaw"}]}
-{"label":"SKILL","pattern":[{"LOWER":"segment"}]}
-{"label":"SKILL","pattern":[{"LOWER":"segmentation"}]}
 {"label":"SKILL","pattern":[{"LOWER":"selenium"}]}
 {"label":"SKILL","pattern":[{"LOWER":"self-hosted"},{"LOWER":"blogging"},{"LOWER":"/"},{"LOWER":"cms"}]}
 {"label":"SKILL","pattern":[{"LOWER":"self-hosted blogging "},{"LOWER":" cms"}]}

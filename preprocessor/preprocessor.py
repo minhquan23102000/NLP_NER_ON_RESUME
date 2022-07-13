@@ -1,3 +1,6 @@
+import re
+
+
 def remove_accents(s):
     import re
     import unicodedata
@@ -27,7 +30,6 @@ def clean_whitespace(statement):
 
 
 def clean_text(text):
-    import re
 
     #remove accents
     text = remove_accents(text).decode('utf-8')
@@ -39,3 +41,6 @@ def clean_text(text):
     text = clean_whitespace(text)
 
     return text
+
+def is_special_char(text):
+    return re.findall(r"[^,\.\(\)\:\-\+\#\w\d]+", text)

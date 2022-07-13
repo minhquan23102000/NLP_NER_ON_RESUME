@@ -2,8 +2,8 @@ services:
   web:
     build: .
     container_name: readyourresume
-    command: streamlit run app_online.py --server.port ${PORT} --server.headless true
+    command: streamlit run app_online.py --server.port ${PORT:wq} --server.headless true
     ports:
-      - ${PORT}:$PORT 
+      - ${PORT}:${PORT} 
     volumes:
       - .:/app
