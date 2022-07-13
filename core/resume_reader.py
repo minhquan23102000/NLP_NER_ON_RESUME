@@ -46,8 +46,10 @@ class ResumeReader(object):
         if len(data["skills"]) < 10:
             data["skills"] = self.get_skills(resume_content)
 
-        if not (data["basics"].get("name", None) and data["basics"]["label"]):
+        if not (data["basics"].get("name", None)):
             data["basics"].update(self.get_basic_info(resume_content))
+            if not data["basics"].get("name", None):
+                data['basics']['name'] = "Unknown"
 
         del self.heading_segment_content
         del self.resume_content
@@ -59,6 +61,7 @@ class ResumeReader(object):
         data = defaultdict(list)
         data["profiles"] = []
         data["location"] = {"address": []}
+        print(self.content_model.get_ents())
         for key, value in self.content_model.get_ents():
             if key == "ADDRESS":
                 data["location"]["address"].append(value)
@@ -67,11 +70,8 @@ class ResumeReader(object):
             else:
                 key = key_map_config.BASIC_MAP.get(key, "other")
                 value = format_date(value) if key == "dateBirth" else value
-
                 data[key].append(value)
-        # If basic information is None, read the whole document
-        if not (data["name"] or data["label"]):
-            return self.get_basic_info(text=self.resume_content)
+
         # Get summary text
         data["summary"] = (
             self.heading_segment_content["SUMMARY"]
@@ -91,6 +91,7 @@ class ResumeReader(object):
                     data[key] = min(value)
                 except:
                     data[key] = value
+        #Assign job title if is None
         if not data.get("label", None):
             data["label"] = data["other"]
 
@@ -125,8 +126,6 @@ class ResumeReader(object):
             key_range, collect_points, accepted_min_len, key_map_config.EDUCATION_MAP
         )
         collector.collect(self.content_model.get_ents())
-        print(collector.container)
-        # print("ent: ", self.content_model.get_ents())
 
         return collector.get_container(except_key={"other"}), certificates
 
@@ -135,7 +134,7 @@ class ResumeReader(object):
 
         collect_points = {"name", "position"}
         key_range = set(key_map_config.WORK.keys())
-        accepted_min_len = 3
+        accepted_min_len = 2
 
         class WorkExpCollector(Collector):
             def before_update_bundle(self, key, label, text):

@@ -6,4 +6,4 @@ FROM nikolaik/python-nodejs:python3.8-nodejs17-slim
     RUN pip install -U pip
     RUN pip install --no-cache-dir  -r requirements.txt
 
-    CMD streamlit run app_online.py --server.port ${PORT} --server.headless true
+    CMD streamlit run app_online.py --server.port ${PORT:-8501} --server.headless true

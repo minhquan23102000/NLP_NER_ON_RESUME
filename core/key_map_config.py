@@ -8,6 +8,7 @@ BASIC_MAP = {
     "DATE": "dateBirth",
     "MARIAGE_STATUS": "mariageStatus",
     "GENDER": "gender",
+    "none": "none"
 }
 
 LOCATION_MAP = {"ADDRESS": "address"}
@@ -41,7 +42,8 @@ WORK_MAP = {
     "JOB_TITLE": "position",
     "DATE": "date",
     "DOING": "highlights",
-    "SKILL": "keywords"
+    "SKILL": "keywords",
+    "none": "unlabeled",
 }
 
 EDUCATION = {
@@ -59,6 +61,7 @@ EDUCATION_MAP = {
     "EDUCATION_LEVEL": "studyType",
     "GPA": "score",
     "DATE": "date",
+    "none": "unlabeled",
 }
 
 CERTIFICATE = {
@@ -73,6 +76,7 @@ CERTIFICATE_MAP = {
     "COMPANY": "issuer",
     "ACADEMIC_ORG": "issuer",
     "DATE": "date",
+    "none": "unlabeled",
 }
 
 SKILLS = {
@@ -88,6 +92,7 @@ REFERENCE_MAP = {
     "PHONE": "phone",
     "JOB_TITLE": "role",
     "ORG": "organization",
+    "none": "unlabeled",
 }
 
 PROJECT = {
@@ -106,6 +111,7 @@ PROJECT_MAP = {
     "DATE": "date",
     "URL": "url",
     "JOB_TITLE": "roles",
+    "none": "unlabeled",
 }
 
 HOBBY = {"name": "Wildlife", "keywords": ["Ferrets", "Unicorns"]}

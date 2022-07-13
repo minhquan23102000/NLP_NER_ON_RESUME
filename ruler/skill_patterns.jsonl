@@ -269,7 +269,6 @@
 {"label":"SKILL","pattern":[{"LOWER":"centos"}]}
 {"label":"SKILL","pattern":[{"LOWER":"central"},{"LOWER":"processing"},{"LOWER":"unit"}]}
 {"label":"SKILL","pattern":[{"LOWER":"cepstrum"}]}
-{"label":"SKILL","pattern":[{"LOWER":"certificate"}]}
 {"label":"SKILL","pattern":[{"LOWER":"certificate"},{"LOWER":"authority"}]}
 {"label":"SKILL","pattern":[{"LOWER":"change"},{"LOWER":"detection"}]}
 {"label":"SKILL","pattern":[{"LOWER":"chartbeat"}]}
@@ -2133,3 +2132,4 @@
 {"label":"SKILL","pattern": [{"LOWER": {"REGEX": "(english|japan|japanese|china|chinese|germany|russia|russian|lao|thai|korea|korean)"}}]}
 {"label":"SKILL","pattern": [{"LOWER": {"REGEX": "(react|redux|d3js|.net|mvc|webform|seo)"}}]}
 {"label":"SKILL","pattern":[{"LOWER":"search"}, {"LOWER":"engine"}, {"LOWER": {"REGEX": "(optimize|optimization)"}, "OP": "?"}]}
+{"label": "SKILL", "pattern": [{"LOWER": "time"}, {"LOWER": {"REGEX": "series?"}}, {"LOWER": {"REGEX": "analysis?"}}]}

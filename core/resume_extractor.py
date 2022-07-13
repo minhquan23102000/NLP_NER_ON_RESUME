@@ -173,10 +173,10 @@ class ContentExtractor(Extractor):
                     string_not_cat = ""
                     label = token.ent_type_
 
-                if not preprocessor.is_special_char(token.text):
+                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_punct):
                     string_cat += token.text_with_ws
             else:
-                if not preprocessor.is_special_char(token.text):
+                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_punct):
                     string_not_cat += token.text_with_ws
 
         if label == "DOING":

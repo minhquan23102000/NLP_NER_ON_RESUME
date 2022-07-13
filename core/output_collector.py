@@ -52,22 +52,22 @@ class Collector(object):
         for label, text in entities:
             collect_string = ""
             if self.check_collect_point(label):
-                #collect_string = f"Collect-> Container size: {len(self.container)}\nbundle: {self.bundle}"
+                collect_string = f"Collect-> Container size: {len(self.container)}\nbundle: {self.bundle}"
                 print(collect_string)
                 self.container.append(self.bundle.copy())
                 self.reset_bundle()
             self.update_bundle(label, text)
-            # debug_string = (
-            #     f"bundle_size: {self.bundle_size} - bundle_keys: {self.bundle.keys()}"
-            # )
-            # print(debug_string, end='\r')
+            debug_string = (
+                f"bundle_size: {self.bundle_size} - bundle_keys: {self.bundle.keys()}"
+            )
+            print(debug_string)
 
         if self.bundle_size >= self.accepted_min_size-2:
             self.container.append(self.bundle.copy())
         else:
             if self.container:
                 self.container[-1].update(self.bundle.copy())
-        #print(f"Done collected: {self.container}")
+        print(f"Done collected: {self.container}")
         self.reset_bundle()
 
     def get_main_keys(self, bundle):
@@ -108,7 +108,7 @@ class Collector(object):
                     if except_key and key in except_key:
                         if isinstance(value, Iterable):
                             try:
-                                bundle[key] = list(set(value))
+                                bundle[key] = list(dict.fromkeys(value))
                             except:
                                 bundle[key] = value
                             continue
@@ -138,7 +138,7 @@ class Collector(object):
     def size_bundle(self, bundle):
         keys = []
         for key in bundle:
-            if key not in ["highlights", "other", "keywords", "url"]:
+            if key not in ["highlights", "other", "keywords", "url", 'unlabeled']:
                 keys.append(key)
 
         return len(keys)

@@ -12,15 +12,18 @@ def parse_url(url:str):
     return profile
 
 def format_date(date_str):
+    import traceback
+
     from dateutil import parser
     if date_str.lower() in ['present', 'now']:
         return ""
 
     try:
-        date = parser.parse(date_str)
+        date = parser.parse(date_str, fuzzy=True)
         date_format = f"{date.year}-{date.month}-{date.day}"
     except Exception as e:
-        print(str(e), e.__cause__)
+        print(str(e))
+        print(traceback.format_exc())
         date_format = date_str
 
     return date_format
