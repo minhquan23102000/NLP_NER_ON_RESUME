@@ -43,4 +43,4 @@ def clean_text(text):
     return text
 
 def is_special_char(text):
-    return re.findall(r"[^,\.\(\)\:\-\+\#\%\/\\\w\d]+", text)
+    return re.findall(r"[^,\.\(\)\:\-\+\#\%\/\\@\w\d]+", text)

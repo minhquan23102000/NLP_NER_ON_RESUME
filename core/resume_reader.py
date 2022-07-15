@@ -87,7 +87,7 @@ class ResumeReader(object):
         data = defaultdict(list)
         data["profiles"] = []
         data["location"] = {"address": []}
-        print(self.content_model.get_ents())
+        #print(self.content_model.get_ents())
         for key, value in self.content_model.get_ents():
             if key == "ADDRESS":
                 data["location"]["address"].append(value)

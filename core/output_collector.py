@@ -53,21 +53,21 @@ class Collector(object):
             collect_string = ""
             if self.check_collect_point(label):
                 collect_string = f"Collect-> Container size: {len(self.container)}\nbundle: {self.bundle}"
-                print(collect_string)
+                #print(collect_string)
                 self.container.append(self.bundle.copy())
                 self.reset_bundle()
             self.update_bundle(label, text)
             debug_string = (
                 f"bundle_size: {self.bundle_size} - bundle_keys: {self.bundle.keys()}"
             )
-            print(debug_string)
+            #print(debug_string)
 
         if self.bundle_size >= self.accepted_min_size-2:
             self.container.append(self.bundle.copy())
         else:
             if self.container:
                 self.container[-1].update(self.bundle.copy())
-        print(f"Done collected: {self.container}")
+        #print(f"Done collected: {self.container}")
         self.reset_bundle()
 
     def get_main_keys(self, bundle):

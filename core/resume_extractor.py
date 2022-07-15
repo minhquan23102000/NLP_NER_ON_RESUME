@@ -128,29 +128,35 @@ class ContentExtractor(Extractor):
         self.doc = self.model(text)
         if not self.doc:
             return
-        self.text = text
+
         phone_span = self.extract_phone(text)
-        print(phone_span)
+        ent_list = list(self.doc.ents)
+
         if phone_span:
             start_idx, end_idx = phone_span.span()
-            span = self.doc.char_span(start_idx, end_idx, label="PHONE")
-            ent_list = list(self.doc.ents)
-            ent_list.append(span)
-            if span:
-                try:
-                    self.doc.set_ents(list(ent_list))
-                except Exception as e:
-                    print(e.__traceback__)
-                    print(str(e))
+            span_phone = self.doc.char_span(
+                start_idx, end_idx, label="PHONE", alignment_mode="contract"
+            )
+            ent_list.append(span_phone)
+        print(ent_list)
+
+        try:
+            self.doc.set_ents(ent_list)
+        except Exception as e:
+            print(str(e))
 
         return self.doc
 
-    def extract_phone(self, text: str) -> List[str]:
+    def extract_phone(self, text: str):
         # phone_token = r"[(\+?84)0]\d{9,12}\s+"
         phone_token = (
             r"(\(?\+?\d{2,2}\)?|0)[\s\-\.]*\d{3}[\s\-\.]*\d{3}[\s\-\.]*\d{3}\b"
         )
         return re.search(phone_token, text)
+
+    def extract_email(self, text: str):
+        email_token = r"[\w.+-]+@[\w-]+\.[\w.-]+"
+        return re.search(email_token, text)
 
     def get_ents(self) -> List[List[str]]:
         ents = []
@@ -173,10 +179,14 @@ class ContentExtractor(Extractor):
                     string_not_cat = ""
                     label = token.ent_type_
 
-                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_punct):
+                if not preprocessor.is_special_char(token.text) and (
+                    len(token.text) > 1 or token.is_punct
+                ):
                     string_cat += token.text_with_ws
             else:
-                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_punct):
+                if not preprocessor.is_special_char(token.text) and (
+                    len(token.text) > 1 or token.is_punct
+                ):
                     string_not_cat += token.text_with_ws
 
         if label == "DOING":
