@@ -1,6 +1,9 @@
 # NLP_NER_ON_RESUME
 Using spacy transformer to train NER model on resume dataset
 
+# Note
+This is a labotory to known how to build a ner model on resume dataset. To build a extract system that meet the actual needs is need much more steps of combination of algorithm such as rule-base matching, regular expressions, etc. You can view more detail in application branch of this repo.
+
 # Demo
 ### Run on terminal after train spacy ner model
 ```cmd
@@ -24,7 +27,7 @@ PROFILE_URL: [{'anhsangvang.com.vn', 'ruellevietnam.com', 'www.khavitech.com', '
 PHONE: [set()]
 ```
 
-### You can view more demo detail from this link: https://readyourresume.herokuapp.com/
+### You can view more demo detail from this link: https://readyourresume.herokuapp.com/ (Because of free domain, so it only ativate in certain hours every month)
 
 # Train model
 ## Step 0: Prepare environment
