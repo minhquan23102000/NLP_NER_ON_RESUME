@@ -168,3 +168,5 @@ test/
 #Private things
 # resume.json
 # resume.pdf
+/resume.json
+/resume.html
