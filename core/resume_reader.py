@@ -51,9 +51,35 @@ class ResumeReader(object):
             if not data["basics"].get("name", None):
                 data['basics']['name'] = "Unknown"
 
+        #Correct date series
+        self.correct_date_series(data['work'])
+        self.correct_date_series(data['education'])
+        self.correct_date_series(data['projects'])
+        self.correct_date_series(data['certificates'])
+
         del self.heading_segment_content
         del self.resume_content
         return data
+
+    def correct_date_series(self, container):
+        for i, j in zip(range(0, len(container)-1), range(1, len(container))):
+            date_ = container[i].get("date", None)
+            if date_:
+               self.append_date(date_, container[j])
+
+        return container
+
+    def append_date(self, date, container):
+        temp_date = container.get("startDate", None)
+        temp_date_1 = container.get("endDate", None)
+        container['startDate'] = date
+
+        if temp_date is not None:
+            container['endDate'] = temp_date
+
+        if temp_date_1 is not None:
+            container['date'] = temp_date_1
+
 
     def get_basic_info(self, text=None) -> Dict[Text, Text]:
         text = text if text else self.heading_segment_content["BASIC"]

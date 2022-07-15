@@ -49,7 +49,7 @@ notification = st.empty()
 notification.info("Start downloading model, please wait...")
 with st.spinner("Loading model"):
     pdf2text = PDFReader()
-    resume_reader = load_model()
+    resume_reader = ResumeReader()
 
 notification.success("Model is ready to go")
 
