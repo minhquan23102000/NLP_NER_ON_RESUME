@@ -18,18 +18,18 @@ class ResumeReader(object):
         else:
             self.content_model = content_model
 
-    def read(self, resume_content: str) -> Dict[Text, Text]:
+    def read(self, resume_file) -> Dict[Text, Text]:
         """Read resume text content, then export to json format with schema like jsonresume.org
 
         Args:
-            resume_content (str): resume content as text, make sure text readed is following constraint layout on pdf file
+            resume_file (file): resume content
 
         Returns:
             _type_: json
         """
         # self.resume_content = resume_content
-        self.heading_model.fit(resume_content)
-        self.resume_content = resume_content
+        self.heading_model.fit(resume_file)
+        self.resume_content = self.heading_model.cv_content
         self.heading_segment_content = self.heading_model.get_dict()
 
         data = {}
@@ -43,11 +43,8 @@ class ResumeReader(object):
         data["projects"] = self.get_projects()
         data["references"] = self.get_reference()
 
-        if len(data["skills"]) < 10:
-            data["skills"] = self.get_skills(resume_content)
-
         if not (data["basics"].get("name", None)):
-            data["basics"].update(self.get_basic_info(resume_content))
+            data["basics"].update(self.get_basic_info(self.resume_content))
             if not data["basics"].get("name", None):
                 data['basics']['name'] = "Unknown"
 
@@ -145,7 +142,7 @@ class ResumeReader(object):
                         "issuer": self.bundle["institution"],
                     }
                     certificates.append(certificate)
-                    self.reset_bundle()
+                    #self.reset_bundle()
                 return key, text
 
         collector = EducationCollector(
@@ -240,12 +237,20 @@ class ResumeReader(object):
         """Get skills content from input resume"""
         text = text if text else self.heading_segment_content["SKILLS"]
         self.content_model.fit(text)
-        data = []
+        hard_skills = []
         for label, text in self.content_model.get_ents():
             if label == "SKILL":
-                data.append(text)
+                hard_skills.append(text)
 
-        return [{"name": "Key skill", "keywords": list(set(data))}]
+        if len(hard_skills) < 10:
+            self.content_model.fit(self.resume_content)
+            hard_skills = []
+            for label, text in self.content_model.get_ents():
+                if label == "SKILL":
+                    hard_skills.append(text)
+
+
+        return [{"name": "Hard skill", "keywords": list(set(hard_skills))}, {"name": "Soft skill", "keywords": []}]
 
     def get_summary(self):
         return self.heading_segment_content["SUMMARY"]

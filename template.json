@@ -1,0 +1,107 @@
+{
+    "basics": {
+        "name": "John Doe (Person name)",
+        "label": "Programmer (Job title)",
+        "email": "john@gmail.com",
+        "phone": "(912) 555-4321",
+        "summary": "A summary of John Doe…",
+        "location": {
+            "address": "2712 Broadway St"
+        },
+        "profiles": [
+            {
+                "network": "Twitter (Website)",
+                "url": "https://twitter.com/john"
+            }
+        ]
+    },
+    "work": [
+        {
+            "name": "Company (company name)",
+            "position": "President",
+            "startDate": "2013-01-01",
+            "endDate": "2014-01-01",
+            "highlights": [
+                "Started the company (những gì người đó làm trong công ty. Ngắt theo từng ý (câu văn)."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "University (tên trường)",
+            "area": "Software Development",
+            "studyType": "Bachelor",
+            "startDate": "2011-01-01",
+            "endDate": "2013-01-01",
+            "score": "4.0",
+            "courses": [
+                "DB1101 - Basic SQL"
+            ]
+        }
+    ],
+    "awards": [
+        {
+            "title": "Award (Tên giải thưởng)",
+            "date": "2014-11-01",
+            "awarder": "Company Cơ quan trao giải",
+            "summary": "There is no spoon."
+        }
+    ],
+    "certificates": [
+        {
+            "name": "Certificate",
+            "date": "2021-11-07",
+            "issuer": "Company Cơ quan chứng nhận"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Hard skill",
+            "keywords": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "name": "Soft skill",
+            "keywords": [
+                "Presentation",
+                "Communication",
+                "Team-work"
+            ]
+        }
+    ],
+    "interests": [
+        {
+            "name": "Bỏ trống",
+            "keywords": [
+                "Ferrets",
+                "Unicorns"
+            ]
+        }
+    ],
+    "references": [
+        {
+            "name": "Jane Doe",
+            "reference": "Reference…"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Project",
+            "highlights": [
+                "Won award at AIHacks 2016 (Mô tả công việc, thành tựa đã làm hoặc đạt được)"
+            ],
+            "keywords": [
+                "HTML"
+            ],
+            "startDate": "2019-01-01",
+            "endDate": "2021-01-01",
+            "url": "https://project.com/",
+            "roles": [
+                "Team Lead"
+            ]
+        }
+    ]
+}

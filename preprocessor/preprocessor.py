@@ -32,7 +32,7 @@ def clean_whitespace(statement):
 def clean_text(text):
 
     #remove accents
-    text = remove_accents(text).decode('utf-8')
+    #text = remove_accents(text).decode('utf-8')
 
     #remove continuos characters
     text = re.sub(r'[^\w\d\s]{4,}', ' ', text)
@@ -43,4 +43,4 @@ def clean_text(text):
     return text
 
 def is_special_char(text):
-    return re.findall(r"[^,\.\(\)\:\-\+\#\%\/\\@\w\d]+", text)
+    return re.findall(r"[^\s,\.\(\)\:\-\+\#\%\/\\@\w\d]+", text)

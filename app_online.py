@@ -58,14 +58,14 @@ cols = st.columns([1, 1])
 if cv_file:
 
     # Read content resume
-    cv_content = pdf2text.read(cv_file, fast=True)
+    #cv_content = pdf2text.read(cv_file, fast=True)
     pdf_display = f'<embed src="data:application/pdf;base64,{buffer2base64(cv_file.getvalue())}" width=100% height="750" type="application/pdf">'
     cols[0].header("Your Resume")
     cols[0].markdown(pdf_display, unsafe_allow_html=True)
 
     # Extract resume with model
     st.markdown("### Json resume")
-    info = reading_resume(cv_content)
+    info = reading_resume(cv_file)
     st.write(info)
 
     # Save to json
@@ -75,7 +75,7 @@ if cv_file:
 
     resume_theme = st.sidebar.selectbox(
         "Choose a theme 👇",
-        ["eloquent-mod", "actual", "macchiato", "monoblue"])
+        ["macchiato", "eloquent-mod", "actual", "monoblue"])
 
     # Generate new resume
     resume_html = resume_generator.generate_resume(resume_theme)

@@ -1,15 +1,19 @@
+import os
 import re
 from ast import Raise
 from collections import defaultdict
+from pathlib import Path
 from typing import Dict, List
 
 import spacy
+from file_reader import pdf_checker, pdf_reader
 from pathy import ABC
 from preprocessor import preprocessor
 from spacy import displacy
 from spacy.matcher import Matcher
 from spacy.util import filter_spans
 
+DIR_PATH = os.path.dirname(__file__)
 
 class Extractor(ABC):
     def fit(self, text: str):
@@ -39,37 +43,62 @@ class Extractor(ABC):
 
 class HeadingExtractor(Extractor):
     def __init__(self):
+
         self.nlp = spacy.blank("en")
+        self.pdf_reader = pdf_reader.PDFReader()
+        self.pdf_checker = pdf_checker.PDFChecker()
         self.ruler = self.nlp.add_pipe(
             "entity_ruler", config={"validate": True}
-        ).from_disk("ruler/heading_pattern.jsonl")
+        ).from_disk(f"{DIR_PATH}/ruler/heading_pattern.jsonl")
 
-    def fit(self, text: str):
-        """Fit model to content, call to_dict() to get heading group values
+    def fit(self, file_):
 
-        Args:
-            text (str): resume content as text
-        """
+        cv_content = self.pdf_reader.read(file_, fast=True)
+        self.doc = self.nlp(cv_content)
+
+        if self.pdf_checker.detect(cv_content, self.get_dict()):
+            print("Reading pdf again with another engine")
+            cv_content = self.pdf_reader.read(file_, fast=False)
+            self.doc = self.nlp(cv_content)
+
+        self.cv_content = cv_content
+        return self.doc
+
+    def fit_str(self, text):
         self.doc = self.nlp(text)
+        return self.doc
+
+
 
     def get_dict(self) -> Dict[str, str]:
-        """Extract readed resume content to dictionary"""
+        """
+        It takes a resume, and returns a dictionary of heading of the resume's content
+        :return: A dictionary of the heading of resume content.
+        """
+
         data = defaultdict(str)
 
         last_key = "BASIC"
         last_key_link = ""
+        last_key_link_2 = ""
 
         for token in self.doc:
+            data[last_key] += token.text_with_ws
+            if last_key_link:
+                data[last_key_link] += token.text_with_ws
+            if last_key_link_2:
+                data[last_key_link_2]+= token.text_with_ws
+
             if token.ent_type_ == "":
-                data[last_key] += token.text_with_ws
-                if last_key_link:
-                    data[last_key_link] += token.text_with_ws
                 continue
 
             if token.ent_type_ != last_key:
                 if last_key == "WORK_EXPERIENCE":
                     if token.ent_type_ == "SKILLS":
+                        last_key_link_2 = "SKILLS"
                         continue
+                    else:
+                        last_key_link_2 = ""
 
                     if token.ent_type_ == "PROJECT":
                         last_key_link = last_key
@@ -88,8 +117,8 @@ class SpanExtractor(Extractor):
     def __init__(self):
         import srsly
 
-        patterns = srsly.read_jsonl("ruler/skill_patterns.jsonl")
-        self.model = spacy.load("model/content_span")
+        patterns = srsly.read_jsonl(f"{DIR_PATH}/ruler/skill_patterns.jsonl")
+        self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/content_span")
         self.ruler = self.model.add_pipe("span_ruler", before="spancat").add_patterns(
             patterns
         )
@@ -115,13 +144,13 @@ class ContentExtractor(Extractor):
     def __init__(self):
         import srsly
 
-        self.model = spacy.load("model/content_ner_v1")
+        self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/content_ner_v1")
         self.ruler = self.model.add_pipe(
             "entity_ruler", name="ruler1", config={"validate": True}, after="ner"
-        ).from_disk("ruler/skill_patterns.jsonl")
+        ).from_disk(f"{DIR_PATH}/ruler/skill_patterns.jsonl")
         self.ruler1 = self.model.add_pipe(
             "entity_ruler", name="ruler2", config={"validate": True}, before="ner"
-        ).from_disk("ruler/basic_info_patterns.jsonl")
+        ).from_disk(f"{DIR_PATH}/ruler/basic_info_patterns.jsonl")
         self.available_labels = self.model.get_pipe("ner").labels
 
     def fit(self, text: str):
@@ -167,7 +196,7 @@ class ContentExtractor(Extractor):
             if token.ent_type:
                 if token.ent_iob_ == "B":
                     if token.ent_type_ == "SKILL" and label == "DOING":
-                        string_cat += token.text_with_ws
+                        string_cat += token.text_with_ws + " "
                         continue
                     if label == "DOING":
                         string_cat += string_not_cat
@@ -179,15 +208,11 @@ class ContentExtractor(Extractor):
                     string_not_cat = ""
                     label = token.ent_type_
 
-                if not preprocessor.is_special_char(token.text) and (
-                    len(token.text) > 1 or token.is_punct
-                ):
-                    string_cat += token.text_with_ws
+                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_alpha):
+                    string_cat += token.text_with_ws + " "
             else:
-                if not preprocessor.is_special_char(token.text) and (
-                    len(token.text) > 1 or token.is_punct
-                ):
-                    string_not_cat += token.text_with_ws
+                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_alpha):
+                    string_not_cat += token.text_with_ws + " "
 
         if label == "DOING":
             string_cat += string_not_cat
