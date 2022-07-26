@@ -34,7 +34,11 @@ Hồ Chí Minh
 """
 import re
 
-x = re.finditer("IT Administ rat or", test)
+import spacy
 
-for i in x:
-    print(i)
+nlp = spacy.blank('en')
+
+doc = nlp(test)
+
+for token in doc:
+    print(token)

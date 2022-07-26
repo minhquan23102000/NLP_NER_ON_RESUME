@@ -5,15 +5,18 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List
 
+import langid
 import spacy
 from file_reader import pdf_checker, pdf_reader
 from pathy import ABC
 from preprocessor import preprocessor
+from pyvi import ViTokenizer
 from spacy import displacy
 from spacy.matcher import Matcher
 from spacy.util import filter_spans
 
 DIR_PATH = os.path.dirname(__file__)
+
 
 class Extractor(ABC):
     def fit(self, text: str):
@@ -43,7 +46,10 @@ class Extractor(ABC):
 
 class HeadingExtractor(Extractor):
     def __init__(self):
-
+        """
+        The function initializes the spacy model, the pdf reader and the pdf checker. It also adds the
+        entity ruler to the spacy model
+        """
         self.nlp = spacy.blank("en")
         self.pdf_reader = pdf_reader.PDFReader()
         self.pdf_checker = pdf_checker.PDFChecker()
@@ -52,6 +58,13 @@ class HeadingExtractor(Extractor):
         ).from_disk(f"{DIR_PATH}/ruler/heading_pattern.jsonl")
 
     def fit(self, file_):
+        """
+        It reads the pdf file, checks if it's a readable pdf or not, if it's not, it reads it again with
+        another engine
+
+        :param file_: file object
+        :return: The doc object is being returned.
+        """
 
         cv_content = self.pdf_reader.read(file_, fast=True)
         self.doc = self.nlp(cv_content)
@@ -62,13 +75,22 @@ class HeadingExtractor(Extractor):
             self.doc = self.nlp(cv_content)
 
         self.cv_content = cv_content
+        self.lang = self.language_dectect()
         return self.doc
 
     def fit_str(self, text):
         self.doc = self.nlp(text)
+        self.lang = self.language_dectect()
         return self.doc
 
-
+    def language_dectect(self):
+        en, vi = 0, 0
+        for k, v in self.get_dict().items():
+            if langid.classify(v)[0] == "en":
+                en += 1
+            else:
+                vi += 1
+        return "en" if en > vi else "vi"
 
     def get_dict(self) -> Dict[str, str]:
         """
@@ -83,13 +105,12 @@ class HeadingExtractor(Extractor):
         last_key_link_2 = ""
 
         for token in self.doc:
-            data[last_key] += token.text_with_ws
-            if last_key_link:
-                data[last_key_link] += token.text_with_ws
-            if last_key_link_2:
-                data[last_key_link_2]+= token.text_with_ws
-
             if token.ent_type_ == "":
+                data[last_key] += token.text_with_ws
+                if last_key_link:
+                    data[last_key_link] += token.text_with_ws
+                if last_key_link_2:
+                    data[last_key_link_2] += token.text_with_ws
                 continue
 
             if token.ent_type_ != last_key:
@@ -113,38 +134,33 @@ class HeadingExtractor(Extractor):
         return displacy.render(self.doc, style="ent")
 
 
-class SpanExtractor(Extractor):
-    def __init__(self):
-        import srsly
-
-        patterns = srsly.read_jsonl(f"{DIR_PATH}/ruler/skill_patterns.jsonl")
-        self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/content_span")
-        self.ruler = self.model.add_pipe("span_ruler", before="spancat").add_patterns(
-            patterns
-        )
-        self.available_labels = self.model.get_pipe("spancat").labels
-
-    def fit(self, text: str):
-        self.doc = self.model(text)
-        return self.doc
-
-    def get_dict(self) -> Dict[str, str]:
-        data = defaultdict(list)
-
-        for span in self.doc.spans["sc"]:
-            data[span.label_] += [span]
-
-        return data
-
-    def get_html(self):
-        return displacy.render(self.doc, style="span")
-
-
 class ContentExtractor(Extractor):
-    def __init__(self):
-        import srsly
+    def __init__(self, lang="en"):
+        """
+        The function takes in a language parameter, and if the language is Vietnamese, it loads the
+        Vietnamese model, and if the language is English, it loads the English model.
 
-        self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/content_ner_v1")
+        If the language is neither Vietnamese nor English, it raises an error.
+
+        The function also loads the entity ruler patterns from the ruler folder.
+
+        The entity ruler patterns are the patterns that the model will use to extract entities.
+
+        The function also gets the available labels of the model.
+
+        The available labels are the labels that the model can extract.
+
+        :param lang: language of the text to be processed, defaults to en (optional)
+        """
+        if lang == "vi":
+            self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/vi_content_ner")
+        elif lang == "en":
+            self.model = spacy.load(f"{os.path.dirname(DIR_PATH)}/model/en_content_ner")
+        else:
+            raise ValueError("Invalid language")
+
+        self.lang = lang
+
         self.ruler = self.model.add_pipe(
             "entity_ruler", name="ruler1", config={"validate": True}, after="ner"
         ).from_disk(f"{DIR_PATH}/ruler/skill_patterns.jsonl")
@@ -154,6 +170,23 @@ class ContentExtractor(Extractor):
         self.available_labels = self.model.get_pipe("ner").labels
 
     def fit(self, text: str):
+        """
+        1. Tokenize the text if cv content is vietnamese else it remove accent from text
+        2. Create a doc object using the model
+        3. Extract the phone number from the text
+        4. Create a span object for the phone number
+        5. Add the span object to the list of entities
+        6. Set the entities of the doc object to the list of entities
+
+        :param text: The text to be processed
+        :type text: str
+        :return: The doc object
+        """
+        if self.lang == "vi":
+            text = ViTokenizer.tokenize(text)
+        else:
+            text = preprocessor.remove_accents(text)
+
         self.doc = self.model(text)
         if not self.doc:
             return
@@ -188,6 +221,16 @@ class ContentExtractor(Extractor):
         return re.search(email_token, text)
 
     def get_ents(self) -> List[List[str]]:
+        """
+        1. Iterate through the tokens in the doc
+        2. If the token is an entity, check if it's the beginning of a new entity (iob_ == "B")
+        3. If it is, check if the previous entity was a "DOING" entity. If it was, add the previous entity
+        to the current one.
+        4. If it wasn't, add the previous entity to the list of entities.
+        5. If the token is not an entity, add it to the current entity.
+        6. If the token is the last token in the doc, add the current entity to the list of entities.
+        :return: A list of lists, where each list contains the entity type and the entity text.
+        """
         ents = []
         string_cat = ""
         string_not_cat = ""
@@ -201,25 +244,58 @@ class ContentExtractor(Extractor):
                     if label == "DOING":
                         string_cat += string_not_cat
                     elif len(string_not_cat.strip()) > 1:
-                        ents.append(["none", string_not_cat.strip()])
+                        ents.append(
+                            [
+                                "none",
+                                string_not_cat.strip()
+                                if self.lang == "en"
+                                else string_not_cat.strip().replace("_", " "),
+                            ]
+                        )
                     if len(string_cat) > 1 and label:
-                        ents.append([label, string_cat.strip()])
+                        ents.append(
+                            [
+                                label,
+                                string_cat.strip()
+                                if self.lang == "en"
+                                else string_cat.strip().replace("_", " "),
+                            ]
+                        )
                     string_cat = ""
                     string_not_cat = ""
                     label = token.ent_type_
 
-                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_alpha):
+                if not preprocessor.is_special_char(token.text) and (
+                    len(token.text) > 1 or token.is_alpha
+                ):
                     string_cat += token.text_with_ws + " "
             else:
-                if not preprocessor.is_special_char(token.text) and (len(token.text) > 1 or token.is_alpha):
+                if not preprocessor.is_special_char(token.text) and (
+                    len(token.text) > 1 or token.is_alpha
+                ):
                     string_not_cat += token.text_with_ws + " "
 
         if label == "DOING":
             string_cat += string_not_cat
         elif len(string_not_cat.strip()) > 1:
-            ents.append(["none", string_not_cat.strip()])
+
+            ents.append(
+                [
+                    "none",
+                    string_not_cat.strip()
+                    if self.lang != "vi"
+                    else string_not_cat.strip().replace("_", " "),
+                ]
+            )
         if len(string_cat) > 1 and label:
-            ents.append([label, string_cat.strip()])
+            ents.append(
+                [
+                    label,
+                    string_cat.strip()
+                    if self.lang != "vi"
+                    else string_cat.strip().replace("_", " "),
+                ]
+            )
 
         return ents
 

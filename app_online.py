@@ -85,9 +85,13 @@ if cv_file:
     with cols[1]:
         components.html(resume_html, height=750, scrolling=True)
 
-    # resume_reader.content_model.fit(cv_content)
+    #resume_reader.content_model.fit(cv_content)
     st.write(resume_reader.heading_model.get_dict())
-    # st.write(resume_reader.content_model.get_dict())
+
+    for key, value in resume_reader.heading_model.get_dict().items():
+        resume_reader.content_model.fit(value)
+        st.header(key)
+        st.markdown(resume_reader.content_model.get_html(), unsafe_allow_html=True)
 
     html = resume_reader.heading_model.get_html()
     st.markdown(html, unsafe_allow_html=True)

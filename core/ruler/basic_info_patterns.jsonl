@@ -1,9 +1,17 @@
 {"label": "URL", "pattern": [{"LIKE_URL": true}]}
 {"label": "EMAIL", "pattern": [{"LIKE_EMAIL": true}]}
-{"label": "GENDER", "pattern": [{"LOWER": {"IN": ["male", "female", "nữ", "nam"]}}]}
+{"label": "GENDER", "pattern": [{"LOWER": {"IN": ["male", "female", "nữ", "nam", "nu"]}}]}
 {"label": "MARIAGE_STATUS", "pattern": [{"LOWER": {"IN": ["single", "marriage", "married", "alone"]}}]}
 {"label": "MARIAGE_STATUS", "pattern": [{"LOWER": "độc"}, {"LOWER": "thân"}]}
 {"label": "MARIAGE_STATUS", "pattern": [{"LOWER": "kết"}, {"LOWER": "hôn"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": {"REGEX": "^[bmi][.,][aesc]$"}}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": {"REGEX": "(associate|master|bachelor|doctor|doctoral)"}}, {"LOWER": "'s", "OP": "?"}, {"LOWER": "degree", "OP": "?"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "ph"}, {"LOWER": ".", "OP": "?"}, {"LOWER": "d"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "thạc"}, {"LOWER": "sĩ"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "thạc"}, {"LOWER": "sỹ"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "tiến"}, {"LOWER": "sĩ"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "tiến"}, {"LOWER": "sĩ"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "cử"}, {"LOWER": "nhân"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "kỹ"}, {"LOWER": "sư"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "kĩ"}, {"LOWER": "sư"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "học"}, {"LOWER": "viên"}]}

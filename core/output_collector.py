@@ -13,6 +13,19 @@ class Collector(object):
         accepted_min_size: int,
         map_keys: dict,
     ):
+        """
+        A constructor function.
+
+        :param key_range: the keys that are allowed to be collected
+        :type key_range: Iterable[str]
+        :param collect_point: The keys that will be used to determine if the data is ready to be collected
+        :type collect_point: Iterable[str]
+        :param accepted_min_size: The minimum number of items in the container before it is considered
+        valid
+        :type accepted_min_size: int
+        :param map_keys: dict
+        :type map_keys: dict
+        """
         self.need_collect = False
         self.key_range = set(key_range)
         self.collect_point = set(collect_point)
@@ -22,9 +35,33 @@ class Collector(object):
         self.container: List[Dict] = []
 
     def before_update_bundle(self, key, label, text):
+        """
+        It takes the key, label, and text of the bundle, and returns the key and text.
+        This function will be update key and text before it add to bundle by calling update_bundle
+
+        :param key: The key of the bundle
+        :param label: The label of the bundle
+        :param text: The text that is currently in the text box
+        :return: The key and text.
+        """
         return key, text
 
     def update_bundle(self, label, text):
+        """
+        It takes a label and text, and then it updates the bundle with the text.
+
+        The label is used to determine which key to use in the bundle.
+
+        The text is used to update the bundle.
+
+        The text is formatted before it is added to the bundle.  The text is formatted by calling the before_update_bundle function.
+
+        The key and text are used to update the bundle.
+
+        :param label: The label of the entity
+        :param text: the text that is being processed
+        :return: The key and text are being returned.
+        """
         key = self.map_keys.get(label, "other")
         if label == "DATE":
             text = text.replace(".", "-")
@@ -34,7 +71,7 @@ class Collector(object):
                     self.bundle["startDate"].append(startDate)
                     self.bundle["endDate"].append(endDate)
                     return
-            #text = format_date(text)
+            text = format_date(text)
             if len(text) <= 1:
                 return
         elif label == "URL":
@@ -49,6 +86,15 @@ class Collector(object):
         self.bundle = defaultdict(list)
 
     def collect(self, entities):
+        """
+        It takes a list of entities (label, text) and appends them to a container as dictionary.
+
+        The container is then appended to a list.
+
+        The dictionary is reset after each valid append.
+
+        :param entities: a list of tuples, each tuple is a pair of (label, text)
+        """
         for label, text in entities:
             if self.check_collect_point(label):
                 print(self.map_keys.get(label, "other") + " break to collect")
@@ -59,9 +105,9 @@ class Collector(object):
                 f"bundle_size: {self.bundle_size} - bundle_keys: {self.bundle.keys()}"
             )
             print(debug_string)
-            #print(self.bundle.values())
+            # print(self.bundle.values())
 
-        if self.bundle_size >= self.accepted_min_size-2:
+        if self.bundle_size >= self.accepted_min_size - 2:
             self.container.append(self.bundle.copy())
         else:
             if self.container:
@@ -73,6 +119,10 @@ class Collector(object):
         return set(filter(lambda x: x in self.collect_point, bundle.keys()))
 
     def reduce_container(self):
+        """
+        It takes a list of dictionaries, and merges the dictionaries that have the same value for a
+        certain key
+        """
         merge_container = []
         i = 0
         while i < len(self.container):
@@ -95,6 +145,13 @@ class Collector(object):
         return z
 
     def get_container(self, except_key=None, select_type="min") -> Dict:
+        """
+        Get all the containers that the collector has been collected.
+
+        :param except_key: a list of keys that you want to keep the list of values for
+        :param select_type: "min" or "max", defaults to min (optional)
+        :return: A list of dictionaries.
+        """
         self.reduce_container()
         if except_key is None:
             except_key = {"other"}
@@ -137,17 +194,22 @@ class Collector(object):
     def size_bundle(self, bundle):
         keys = []
         for key in bundle:
-            if key not in ["highlights", "other", "keywords", "url", 'unlabeled']:
+            if key not in ["highlights", "other", "keywords", "url", "unlabeled"]:
                 keys.append(key)
 
         return len(keys)
 
     def check_collect_point(self, label):
+        """
+        Check if current entity is collector point for collector compresses a container
+
+        :param label: the label of the current point
+        :return: a boolean value. true if current entity is a collector point
+        """
         key = self.map_keys.get(label, "other")
         if key not in self.collect_point:
             return False
         if key not in self.bundle.keys():
             return False
-
 
         return self.bundle_size >= self.accepted_min_size

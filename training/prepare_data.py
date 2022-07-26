@@ -3,54 +3,98 @@ import json
 import os
 import re
 import sys
+from functools import reduce
 from typing import Iterable
 
 import spacy
 
+sys.path.insert(0, os.path.abspath(f'{os.path.dirname(os.path.dirname(__file__))}'))
+import langid
 from core.resume_extractor import HeadingExtractor
 from file_reader.pdf_reader import PDFReader
+from pyvi import ViTokenizer
+from underthesea import sent_tokenize
 
-DATA_PATH = '../cv_data/data'
+DATA_PATH = '../../cv_data/data'
 
 JSON_PATH = f"{DATA_PATH}/json"
 PDF_PATH = f"{DATA_PATH}/pdf"
-nlp = spacy.blank('vi')
+
+#Init model
+nlp = spacy.blank('en')
+
+total_token_counts = 0
+invalid_token_counts = 0
 
 def create_label_span(label, text):
     return {"label": label, "text": text}
 
-def clean_ent(ent):
-    ent = re.sub(r'(\s\|\s)', '|', ent)
-    ent = re.sub(r'^\s*\.*-*|\s*\.*-*$', '', ent)
-    ent = re.sub(r'^\s*\.*-*|\s*\.*-*$', '', ent)
-    ent = re.sub(r'^\s*\.*-*|\s*\.*-*$', '', ent)
+def strip_ent(ent):
+    l = 0
+    r = len(ent)-1
+    while l <= r:
+        if re.match(r'[^\w\d+#%]', ent[l]):
+            l += 1
+        else:
+            break
 
-    ent = re.sub(r'[\(\)\[\]\{\}]', '\(\1', ent)
+    while r >= 0:
+        if re.match(r'[^\w\d+#%]', ent[r]):
+            r -= 1
+        else:
+            break
+
+    return ent[l:r+1]
+
+def get_date_span(text):
+    nlp_t = spacy.load('en_core_web_sm')
+    doc = nlp_t(text)
+
+    for ent in doc.ents:
+        if ent.label_ == 'DATE':
+            break
+
+    return ent.text
+
+def clean_ent(ent):
+    #ent = ViTokenizer.tokenize(ent)
+    ent = re.sub(r'(\s\|\s)', '|', ent)
+    ent = strip_ent(ent)
+    ent = re.sub(r'[\(\)\[\]\{\}]', '\\\1', ent)
+    ent = re.sub(r'[\.\+\*\\]', '\\\1', ent)
     return ent
 
-def create_ents(doc, spans:Iterable, label:str):
+def create_ents(doc, spans:Iterable, label:str, text=""):
+    global total_token_counts, invalid_token_counts
     ents = []
     for span in spans:
         #print(span)
-        span = span.span()
-        span = doc.char_span(span[0], span[1], label=label, alignment_mode='contract')
+        span_idx = span.span()
+        span = doc.char_span(span_idx[0], span_idx[1], label=label, alignment_mode='contract')
+        total_token_counts += 1
         if span:
             ents.append(span)
+        else:
+            invalid_token_counts+=1
     return ents
 
 def create_doc(content, *args):
+    #content = ViTokenizer.tokenize(content)
     doc = nlp(content)
     ents = []
     for ent in args:
         if not ent.get('text', ""):
             continue
-        #print(ent['text'])
-        spans = re.finditer(clean_ent(ent['text']), doc.text)
-        ents += create_ents(doc, spans, ent['label'])
+        #Skip eng corpus only take vi corpus
+        if langid.classify(ent.get('text')[0]) == 'en' and ent['label'] in ['DOING']:
+            continue
+        clean_ent_ = clean_ent(ent['text'])
+        spans = re.finditer(f"{clean_ent_}", doc.text)
+        ents += create_ents(doc, spans, ent['label'], clean_ent_)
     if ents:
         ents = spacy.util.filter_spans(ents)
-        print(ents)
         doc.set_ents(ents)
+        print(doc.ents)
 
     return doc
 
@@ -60,12 +104,14 @@ def create_basic_doc(content:str, basics_json):
     address = basics_json.get("location", "")
     if address: address = address.get('address', "")
     date_birth = basics_json.get('dateBirth', "")
+    if date_birth:
+        date_birth = get_date_span(content)
 
     args = []
     args.append(create_label_span("PERSON_NAME", person_name))
     args.append(create_label_span("JOB_TITLE", job_title))
     args.append(create_label_span("ADDRESS", address))
-    args.append(create_label_span("DATE_BIRTH", date_birth))
+    args.append(create_label_span("DATE", date_birth))
 
     return create_doc(content, *args)
 
@@ -84,7 +130,7 @@ def create_education_doc(content:str, data):
         #args.append(create_label_span("EDUCATION_LEVEL", studyType))
         args.append(create_label_span("DATE", startDate))
         args.append(create_label_span("DATE", endDate))
-        args.append(create_label_span("GPA", score))
+        #args.append(create_label_span("GPA", score))
 
     return create_doc(content, *args)
 
@@ -93,7 +139,7 @@ def create_skill_doc(content:str, data):
     hard_skills = []
     soft_skills = []
     for skill in data:
-        if skill.get('name')== 'Hard Skill':
+        if skill.get('name')== 'Hard skill':
             hard_skills += skill.get('keywords', [])
         else:
             soft_skills += skill.get('keywords',[])
@@ -115,7 +161,7 @@ def create_work_doc(content:str, data):
         highlights = work.get('highlights', [])
         doing = []
         for h in highlights:
-            h = re.split(r'[\n\.]+', h)
+            h = sent_tokenize(h)
             doing.extend(h)
 
         args.append(create_label_span("ORG", name))
@@ -141,14 +187,15 @@ def create_project_doc(content:str, data):
 
         doing = []
         for h in highlights:
-            h = re.split(r'[\n\.]+', h)
+            h = sent_tokenize(h)
             doing.extend(h)
+
 
         args.append(create_label_span("PROJECT_NAME", name))
         args.append(create_label_span("DATE", startDate))
         args.append(create_label_span("DATE", endDate))
         args.extend([create_label_span("JOB_TITLE", role) for role in roles])
-        args.extend([create_label_span("HARD_SKILL", skill) for skill in keywords])
+        #args.extend([create_label_span("HARD_SKILL", skill) for skill in keywords])
 
         for do in doing:
             if do:
@@ -161,40 +208,57 @@ def create_hobby_doc(content:str, data):
     args = []
     for hobbies in data:
         hob = hobbies.get('keywords', [])
-        args.extend([create_label_span("HOBBY", h) for h in hob])
+        if hob:
+            args.extend([create_label_span("HOBBY", h) for h in hob])
+
+        hob_name = hobbies.get('name', "")
+        if hob_name:
+            args.append(create_label_span("HOBBY", hob_name))
 
     return create_doc(content, *args)
 
 
 if __name__ == '__main__':
-    pdf_reader = PDFReader()
     heading_extractor = HeadingExtractor()
     docBin = spacy.tokens.DocBin()
-    for path in glob.glob(f"{PDF_PATH}/*.pdf")[7:15]:
+    print("Start to convert data to spacy format")
+    for path in glob.glob(f"{PDF_PATH}/*.pdf"):
         with open(path, 'rb') as f:
-            cv_content = pdf_reader.read(f)
-            heading_extractor.fit(cv_content)
+            heading_extractor.fit(f)
             heading_content = heading_extractor.get_dict()
 
 
         filename = path.split('\\')[-1]
         filename = filename.replace('.pdf', '.json')
-        with open(f'{JSON_PATH}/{filename}', 'r', encoding='utf-8') as f:
-            json_resume = json.loads(f.read())
+        try:
+            with open(f'{JSON_PATH}/{filename}', 'r', encoding='utf-8') as f:
+                json_resume = json.loads(f.read())
+        except FileNotFoundError as e:
+            print(e)
+            continue
 
         basic_doc = create_basic_doc(heading_content['BASIC'], json_resume.get('basics', {}))
         education_doc = create_education_doc(heading_content['EDUCATION'], json_resume.get('education',[]))
-        skill_doc = create_skill_doc(heading_content['SKILLS'], json_resume.get('skills', []))
+        #skill_doc = create_skill_doc(heading_content['SKILLS'], json_resume.get('skills', []))
         work_doc = create_work_doc(heading_content['WORK_EXPERIENCE'], json_resume.get('work', []))
         project_doc = create_project_doc(heading_content['PROJECT'], json_resume.get('projects', []))
         hobby_doc = create_hobby_doc(heading_content['HOBBIES'], json_resume.get('interests', []))
 
         docBin.add(basic_doc)
         docBin.add(education_doc)
-        docBin.add(skill_doc)
+        #docBin.add(skill_doc)
         docBin.add(work_doc)
         docBin.add(project_doc)
         docBin.add(hobby_doc)
+
+    print("Done")
+    print(f"Total tokens: {total_token_counts}. Total invalid tokens: {invalid_token_counts}")
+    print(f"{invalid_token_counts/total_token_counts:.2f} invalid tokens in corpus")
+
+    db = spacy.tokens.DocBin().from_disk('corpus/phoner_covid.spacy')
+    docBin.merge(db)
+
+    docBin.to_disk('train.spacy')
 
 
 

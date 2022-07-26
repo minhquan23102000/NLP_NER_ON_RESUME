@@ -6,13 +6,12 @@ import shutil
 
 import langid
 import tqdm
-
 from file_reader.pdf_reader import PDFReader
 
 pdf_reader = PDFReader()
-save_path = 'data'
-corpus_path = list(glob.glob('..\\CV_Parse\\resource\\CV\\IT\\**\\*.pdf'))
-corpus_path += list(glob.glob('..\\CV_Parse\\resource\\CV\\CV2\\*.pdf'))
+save_path = '.'
+corpus_path = list(glob.glob('..\\..\\CV_Parse\\resource\\CV\\IT\\**\\*.pdf'))
+corpus_path += list(glob.glob('..\\..\\CV_Parse\\resource\\CV\\CV2\\*.pdf'))
 random.shuffle(corpus_path)
 
 if not os.path.exists(save_path):

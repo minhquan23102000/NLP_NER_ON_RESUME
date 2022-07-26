@@ -7,16 +7,12 @@ from ultils import format_date, parse_url
 
 from . import key_map_config
 from .output_collector import Collector
-from .resume_extractor import ContentExtractor, HeadingExtractor, SpanExtractor
+from .resume_extractor import ContentExtractor, HeadingExtractor
 
 
 class ResumeReader(object):
-    def __init__(self, content_model=None):
+    def __init__(self):
         self.heading_model = HeadingExtractor()
-        if content_model is None:
-            self.content_model = ContentExtractor()
-        else:
-            self.content_model = content_model
 
     def read(self, resume_file) -> Dict[Text, Text]:
         """Read resume text content, then export to json format with schema like jsonresume.org
@@ -28,7 +24,13 @@ class ResumeReader(object):
             _type_: json
         """
         # self.resume_content = resume_content
+
         self.heading_model.fit(resume_file)
+        if self.heading_model.lang == "en":
+            self.content_model = ContentExtractor(lang="en")
+        else:
+            self.content_model = ContentExtractor(lang="vi")
+
         self.resume_content = self.heading_model.cv_content
         self.heading_segment_content = self.heading_model.get_dict()
 
@@ -46,37 +48,36 @@ class ResumeReader(object):
         if not (data["basics"].get("name", None)):
             data["basics"].update(self.get_basic_info(self.resume_content))
             if not data["basics"].get("name", None):
-                data['basics']['name'] = "Unknown"
+                data["basics"]["name"] = "Unknown"
 
-        #Correct date series
-        self.correct_date_series(data['work'])
-        self.correct_date_series(data['education'])
-        self.correct_date_series(data['projects'])
-        self.correct_date_series(data['certificates'])
+        # Correct date series
+        self.correct_date_series(data["work"])
+        self.correct_date_series(data["education"])
+        self.correct_date_series(data["projects"])
+        self.correct_date_series(data["certificates"])
 
         del self.heading_segment_content
         del self.resume_content
         return data
 
     def correct_date_series(self, container):
-        for i, j in zip(range(0, len(container)-1), range(1, len(container))):
+        for i, j in zip(range(0, len(container) - 1), range(1, len(container))):
             date_ = container[i].get("date", None)
             if date_:
-               self.append_date(date_, container[j])
+                self.append_date(date_, container[j])
 
         return container
 
     def append_date(self, date, container):
         temp_date = container.get("startDate", None)
         temp_date_1 = container.get("endDate", None)
-        container['startDate'] = date
+        container["startDate"] = date
 
         if temp_date is not None:
-            container['endDate'] = temp_date
+            container["endDate"] = temp_date
 
         if temp_date_1 is not None:
-            container['date'] = temp_date_1
-
+            container["date"] = temp_date_1
 
     def get_basic_info(self, text=None) -> Dict[Text, Text]:
         text = text if text else self.heading_segment_content["BASIC"]
@@ -84,7 +85,7 @@ class ResumeReader(object):
         data = defaultdict(list)
         data["profiles"] = []
         data["location"] = {"address": []}
-        #print(self.content_model.get_ents())
+        # print(self.content_model.get_ents())
         for key, value in self.content_model.get_ents():
             if key == "ADDRESS":
                 data["location"]["address"].append(value)
@@ -114,7 +115,7 @@ class ResumeReader(object):
                     data[key] = min(value)
                 except:
                     data[key] = value
-        #Assign job title if is None
+        # Assign job title if is None
         if not data.get("label", None):
             data["label"] = data["other"]
 
@@ -142,7 +143,7 @@ class ResumeReader(object):
                         "issuer": self.bundle["institution"],
                     }
                     certificates.append(certificate)
-                    #self.reset_bundle()
+                    # self.reset_bundle()
                 return key, text
 
         collector = EducationCollector(
@@ -238,9 +239,12 @@ class ResumeReader(object):
         text = text if text else self.heading_segment_content["SKILLS"]
         self.content_model.fit(text)
         hard_skills = []
+        soft_skills = []
         for label, text in self.content_model.get_ents():
-            if label == "SKILL":
+            if label == "SKILL" or label == "HARD_SKILL":
                 hard_skills.append(text)
+            else:
+                soft_skills.append(text)
 
         if len(hard_skills) < 10:
             self.content_model.fit(self.resume_content)
@@ -249,8 +253,9 @@ class ResumeReader(object):
                 if label == "SKILL":
                     hard_skills.append(text)
 
-
-        return [{"name": "Hard skill", "keywords": list(set(hard_skills))}, {"name": "Soft skill", "keywords": []}]
+        return [
+            {"name": "Key skills", "keywords": list(set(hard_skills))},
+        ]
 
     def get_summary(self):
         return self.heading_segment_content["SUMMARY"]
