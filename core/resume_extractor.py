@@ -165,7 +165,7 @@ class ContentExtractor(Extractor):
             "entity_ruler", name="ruler1", config={"validate": True}, after="ner"
         ).from_disk(f"{DIR_PATH}/ruler/skill_patterns.jsonl")
         self.ruler1 = self.model.add_pipe(
-            "entity_ruler", name="ruler2", config={"validate": True}, before="ner"
+            "entity_ruler", name="ruler2", config={"validate": True}, after="ner"
         ).from_disk(f"{DIR_PATH}/ruler/basic_info_patterns.jsonl")
         self.available_labels = self.model.get_pipe("ner").labels
 
@@ -182,10 +182,11 @@ class ContentExtractor(Extractor):
         :type text: str
         :return: The doc object
         """
-        if self.lang == "vi":
-            text = ViTokenizer.tokenize(text)
-        else:
+        if self.lang == "en":
             text = preprocessor.remove_accents(text)
+        # else:
+        #     text = ViTokenizer.tokenize(text)
+
 
         self.doc = self.model(text)
         if not self.doc:

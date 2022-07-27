@@ -1762,7 +1762,8 @@
 {"label":"SKILL","pattern":[{"LOWER":"sequelize"}]}
 {"label":"SKILL","pattern":[{"LOWER":"sequential"},{"LOWER":"logic"}]}
 {"label":"SKILL","pattern":[{"LOWER":"sequential"},{"LOWER":"pattern"},{"LOWER":"mining"}]}
-{"label":"SKILL","pattern":[{"LOWER":"server"}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX":"server$"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX":"^server"}}]}
 {"label":"SKILL","pattern":[{"LOWER":"server"},{"LOWER":"configuration"},{"LOWER":"and"},{"LOWER":"automation"}]}
 {"label":"SKILL","pattern":[{"LOWER":"serverless"}]}
 {"label":"SKILL","pattern":[{"LOWER":"serverless"},{"LOWER":"/"},{"LOWER":"task"},{"LOWER":"processing"}]}
@@ -2125,11 +2126,45 @@
 {"label":"SKILL","pattern":[{"LOWER":"communication"}]}
 {"label":"SKILL","pattern":[{"LOWER":"teamwork"}]}
 {"label":"SKILL","pattern":[{"LOWER":"presentation"}]}
+{"label":"SKILL","pattern":[{"LOWER":"oop"}]}
+{"label":"SKILL","pattern":[{"LOWER":"uml"}]}
+{"label":"SKILL","pattern":[{"LOWER":"scrum"}]}
+{"label":"SKILL","pattern":[{"LOWER":"rad"}]}
+{"label":"SKILL","pattern":[{"LOWER":"agile"}]}
+{"label":"SKILL","pattern":[{"LOWER":"waterfall"}]}
+{"label":"SKILL","pattern":[{"LOWER":"socket"}]}
+{"label":"SKILL","pattern":[{"TEXT": {"REGEX": "REST|Rest"}}]}
+{"label":"SKILL","pattern":[{"TEXT": {"REGEX": "KSOAP|Ksoap"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "SVN$"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "^visual"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "^mind"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "map$"}}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "mode$"}}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA": true, "OP": "?"}, {"LOWER":"visual"}, {"IS_ALPHA": true, "OP": "?"}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA": true, "OP": "?"}, {"LOWER":"picture"}, {"IS_ALPHA": true, "OP": "?"}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA": true, "OP": "?"}, {"LOWER":"model"}, {"IS_ALPHA": true, "OP": "?"}]}
+{"label":"SKILL","pattern":[{"LOWER":"system"}, {"LOWER": "architecture"}]}
+{"label":"SKILL","pattern":[{"LOWER":"làm"}, {"LOWER": "việc"}, {"LOWER": "nhóm"}]}
+{"label":"SKILL","pattern":[{"LOWER":"làm"}, {"LOWER": "việc"}, {"LOWER": "độc"}, {"LOWER": "lập"}]}
+{"label":"SKILL","pattern":[{"LOWER": {"REGEX": "lập|lên"}}, {"LOWER": "kế"}, {"LOWER": "hoạch"}]}
+{"label":"SKILL","pattern":[{"LOWER":"giao"}, {"LOWER": "tiếp"}]}
+{"label":"SKILL","pattern":[{"LOWER":"tự"}, {"LOWER": "học"}]}
+{"label":"SKILL","pattern":[{"LOWER":"nghiên"}, {"LOWER": "cứu"}]}
+{"label":"SKILL","pattern":[{"LOWER":"phân"}, {"LOWER": "tích"}]}
+{"label":"SKILL","pattern":[{"LOWER":"thiết"}, {"LOWER": "kế"}]}
+{"label":"SKILL","pattern":[{"LOWER":"phần"}, {"LOWER": "mềm"}]}
+{"label":"SKILL","pattern":[{"LOWER":"phần"}, {"LOWER": "cứng"}]}
+{"label":"SKILL","pattern":[{"LOWER":"phần"}, {"LOWER": "cứng"}]}
+{"label":"SKILL","pattern":[{"LOWER":"cơ"}, {"LOWER": "sở"}, {"LOWER": "dữ"}, {"LOWER": "liệu"}]}
+{"label":"SKILL","pattern":[{"LOWER":"quản"}, {"LOWER": "lý"}, {"IS_ALPHA": true}, {"IS_ALPHA": true, "OP": "?"}, {"IS_ALPHA": true, "OP": "?"}]}
+{"label":"SKILL","pattern":[{"LOWER":"giải"}, {"LOWER": "quyết"}, {"LOWER": "vấn"}, {"LOWER": "đề"}]}
+{"label":"SKILL","pattern":[{"LOWER":"xử"}, {"LOWER": "lý"}, {"LOWER": "vấn"}, {"LOWER": "đề"}]}
 {"label":"SKILL","pattern":[{"LOWER":{"REGEX": "^statistics?$"}}]}
 {"label":"SKILL","pattern":[{"LOWER":{"REGEX": "^caculus?$"}}]}
 {"label":"SKILL","pattern":[{"LOWER":{"REGEX": "^programming$"}}]}
 {"label":"SKILL","pattern":[{"IS_ALPHA": true, "IS_STOP": false}, {"LOWER":{"REGEX": "^test(ing)?$"}}]}
-{"label":"SKILL","pattern": [{"LOWER": {"REGEX": "(english|japan|japanese|china|chinese|germany|russia|russian|lao|thai|korea|korean)"}}]}
+{"label":"SKILL","pattern": [{"LOWER": {"REGEX": "(english|japan|japanese|china|chinese|germany|russia|russian|lao|thai|korea|korean|france|italia)"}}]}
+{"label":"SKILL","pattern": [{"LOWER": "tiếng"},{"LOWER": {"REGEX": "(anh|trung|nhật|mỹ|mĩ|đức|nga|lào|thái|campuchia|hàn|pháp|ý)"}}]}
 {"label":"SKILL","pattern": [{"LOWER": {"REGEX": "(react|redux|d3js|.net|mvc|webform|seo)"}}]}
 {"label":"SKILL","pattern":[{"LOWER":"search"}, {"LOWER":"engine"}, {"LOWER": {"REGEX": "(optimize|optimization)"}, "OP": "?"}]}
 {"label": "SKILL", "pattern": [{"LOWER": "time"}, {"LOWER": {"REGEX": "series?"}}, {"LOWER": {"REGEX": "analysis?"}}]}

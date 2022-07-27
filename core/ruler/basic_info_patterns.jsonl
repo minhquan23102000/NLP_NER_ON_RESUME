@@ -15,3 +15,6 @@
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "kỹ"}, {"LOWER": "sư"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "kĩ"}, {"LOWER": "sư"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "học"}, {"LOWER": "viên"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "cao"}, {"LOWER": "đẳng"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "đại"}, {"LOWER": "học"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "cao"}, {"LOWER": "học"}]}
