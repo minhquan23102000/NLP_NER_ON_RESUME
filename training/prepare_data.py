@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+from datetime import date
 from functools import reduce
 from typing import Iterable
 
@@ -27,7 +28,7 @@ total_token_counts = 0
 invalid_token_counts = 0
 
 def create_label_span(label, text):
-    return {"label": label, "text": text}
+    return {"label": label, "text": str(text)}
 
 def strip_ent(ent):
     l = 0
@@ -57,7 +58,6 @@ def get_date_span(text):
     return ent.text
 
 def clean_ent(ent):
-    #ent = ViTokenizer.tokenize(ent)
     ent = re.sub(r'(\s\|\s)', '|', ent)
     ent = strip_ent(ent)
     ent = re.sub(r'[\(\)\[\]\{\}]', '\\\1', ent)
@@ -79,14 +79,13 @@ def create_ents(doc, spans:Iterable, label:str, text=""):
     return ents
 
 def create_doc(content, *args):
-    #content = ViTokenizer.tokenize(content)
     doc = nlp(content)
     ents = []
     for ent in args:
         if not ent.get('text', ""):
             continue
         #Skip eng corpus only take vi corpus
-        if langid.classify(ent.get('text')[0]) == 'en' and ent['label'] in ['DOING']:
+        if langid.classify(ent.get('text'))[0] == 'en' and ent['label'] in ['DOING']:
             continue
         clean_ent_ = clean_ent(ent['text'])
         spans = re.finditer(f"{clean_ent_}", doc.text)
@@ -217,6 +216,21 @@ def create_hobby_doc(content:str, data):
 
     return create_doc(content, *args)
 
+def create_certificate_doc(content:str, data):
+    args = []
+    for certificate in data:
+        #print("Certificate: ",certificate)
+        certificate_name = certificate.get('name', "")
+        date = certificate.get('date', "")
+        issuer = certificate.get('issuer', "")
+
+        args.append(create_label_span("CERTIFICATE", certificate_name))
+        args.append(create_label_span("DATE", date))
+        args.append(create_label_span("ORG", issuer))
+    #print(args)
+
+    return create_doc(content, *args)
+
 
 if __name__ == '__main__':
     heading_extractor = HeadingExtractor()
@@ -243,6 +257,7 @@ if __name__ == '__main__':
         work_doc = create_work_doc(heading_content['WORK_EXPERIENCE'], json_resume.get('work', []))
         project_doc = create_project_doc(heading_content['PROJECT'], json_resume.get('projects', []))
         hobby_doc = create_hobby_doc(heading_content['HOBBIES'], json_resume.get('interests', []))
+        certificate_doc = create_certificate_doc(heading_content['EDUCATION'], json_resume.get('certificates',[]))
 
         docBin.add(basic_doc)
         docBin.add(education_doc)
@@ -250,6 +265,7 @@ if __name__ == '__main__':
         docBin.add(work_doc)
         docBin.add(project_doc)
         docBin.add(hobby_doc)
+        docBin.add(certificate_doc)
 
     print("Done")
     print(f"Total tokens: {total_token_counts}. Total invalid tokens: {invalid_token_counts}")
