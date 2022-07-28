@@ -759,8 +759,8 @@
 {"label":"SKILL","pattern":[{"TEXT":"FOSSA"}]}
 {"label":"SKILL","pattern":[{"LOWER":"fragmentation"},{"LOWER":"(computing)"}]}
 {"label":"SKILL","pattern":[{"LOWER":"framer"}]}
-{"label":"SKILL","pattern":[{"LOWER":"framework"}]}
-{"label":"SKILL","pattern":[{"LOWER":"framework7"}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA":true, "OP": "?"}, {"IS_ALPHA": true}, {"LOWER":"framework"}]}
+{"label":"SKILL","pattern":[{"IS_ALPHA":true, "OP": "?"}, {"IS_ALPHA": true}, {"LOWER":"framework7"}]}
 {"label":"SKILL","pattern":[{"LOWER":"frameworks"},{"LOWER":"(full"},{"LOWER":"stack)"}]}
 {"label":"SKILL","pattern":[{"LOWER":"frequency"},{"LOWER":"analysis"}]}
 {"label":"SKILL","pattern":[{"LOWER":"frequency"},{"LOWER":"domain"}]}

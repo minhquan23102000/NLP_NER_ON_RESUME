@@ -94,8 +94,10 @@ def create_doc(content, *args):
         ents = spacy.util.filter_spans(ents)
         doc.set_ents(ents)
         print(doc.ents)
+        return doc
+    else:
+        return None
 
-    return doc
 
 def create_basic_doc(content:str, basics_json):
     person_name = basics_json.get('name', "")
@@ -123,6 +125,7 @@ def create_education_doc(content:str, data):
         startDate = education.get('startDate', "")
         endDate = education.get('endDate', "")
         score = education.get('score', "")
+        course = education.get('courses', "")
 
         args.append(create_label_span("ORG", institution))
         args.append(create_label_span("MAJOR", area))
@@ -130,6 +133,7 @@ def create_education_doc(content:str, data):
         args.append(create_label_span("DATE", startDate))
         args.append(create_label_span("DATE", endDate))
         #args.append(create_label_span("GPA", score))
+        args.extend([create_label_span("COURSE", c) for c in course])
 
     return create_doc(content, *args)
 
@@ -259,13 +263,20 @@ if __name__ == '__main__':
         hobby_doc = create_hobby_doc(heading_content['HOBBIES'], json_resume.get('interests', []))
         certificate_doc = create_certificate_doc(heading_content['EDUCATION'], json_resume.get('certificates',[]))
 
-        docBin.add(basic_doc)
-        docBin.add(education_doc)
-        #docBin.add(skill_doc)
-        docBin.add(work_doc)
-        docBin.add(project_doc)
-        docBin.add(hobby_doc)
-        docBin.add(certificate_doc)
+        if basic_doc:
+            docBin.add(basic_doc)
+        if education_doc:
+            docBin.add(education_doc)
+       # if skill_doc:
+            #docBin.add(skill_doc)
+        if work_doc:
+            docBin.add(work_doc)
+        if project_doc:
+            docBin.add(project_doc)
+        if hobby_doc:
+            docBin.add(hobby_doc)
+        if certificate_doc:
+            docBin.add(certificate_doc)
 
     print("Done")
     print(f"Total tokens: {total_token_counts}. Total invalid tokens: {invalid_token_counts}")

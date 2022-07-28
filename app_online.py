@@ -86,8 +86,11 @@ if cv_file:
         components.html(resume_html, height=750, scrolling=True)
 
     #resume_reader.content_model.fit(cv_content)
+    st.header("Debug zone")
+    st.header("Resume heading json")
     st.write(resume_reader.heading_model.get_dict())
 
+    st.header("Detail model extraction")
     for key, value in resume_reader.heading_model.get_dict().items():
         resume_reader.content_model.fit(value)
         st.header(key)

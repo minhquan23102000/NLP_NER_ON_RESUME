@@ -61,6 +61,8 @@ EDUCATION_MAP = {
     "EDUCATION_LEVEL": "studyType",
     "GPA": "score",
     "DATE": "date",
+    "SKILL": "keywords",
+    "COURSE": "courses",
     "none": "unlabeled",
 }
 

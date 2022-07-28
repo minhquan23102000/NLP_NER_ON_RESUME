@@ -17,4 +17,5 @@
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "học"}, {"LOWER": "viên"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "cao"}, {"LOWER": "đẳng"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "đại"}, {"LOWER": "học"}]}
+{"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "trung"}, {"LOWER": "cấp"}]}
 {"label": "EDUCATION_LEVEL", "pattern": [{"LOWER": "cao"}, {"LOWER": "học"}]}
