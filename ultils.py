@@ -15,7 +15,7 @@ def format_date(date_str):
     import traceback
 
     from dateutil import parser
-    if date_str.lower() in ['present', 'now']:
+    if date_str.lower() in ['present', 'now', 'hiện tại', 'nay']:
         return ""
 
     try:
