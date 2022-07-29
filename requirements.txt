@@ -7,3 +7,4 @@ streamlit
 pdfplumber
 dill
 python-docx
+pyvi
