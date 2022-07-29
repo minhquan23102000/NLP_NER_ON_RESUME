@@ -8,3 +8,4 @@ pdfplumber
 dill
 python-docx
 pyvi
+langid

@@ -14,7 +14,8 @@ import langid
 from core.resume_extractor import HeadingExtractor
 from file_reader.pdf_reader import PDFReader
 from pyvi import ViTokenizer
-from underthesea import sent_tokenize
+
+#from underthesea import sent_tokenize
 
 DATA_PATH = '../../cv_data/data'
 
