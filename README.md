@@ -27,7 +27,7 @@ PROFILE_URL: [{'anhsangvang.com.vn', 'ruellevietnam.com', 'www.khavitech.com', '
 PHONE: [set()]
 ```
 
-### You can view more demo detail from this link: https://readyourresume.herokuapp.com/ (Because of free domain, so it only ativate in certain hours every month)
+### You can view more demo detail from this link: https://readyourresume.herokuapp.com/ 
 
 # Train model
 ## Step 0: Prepare environment
